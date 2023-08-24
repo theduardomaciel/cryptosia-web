@@ -1,0 +1,25 @@
+import React from "react";
+
+interface Props {
+    icon: React.ReactNode;
+    title: string;
+    description: string;
+}
+
+export default function Card({ icon, title, description }: Props) {
+    return (
+        <div className="w-full h-fit px-6 py-8 bg-gray-200 rounded-[15px] flex-col justify-center items-start gap-[15px] inline-flex border border-transparent transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
+            <div className="justify-center items-center gap-2.5 inline-flex">
+                {icon}
+            </div>
+            <div className="self-stretch flex-col justify-start items-start gap-2 flex">
+                <p className="self-stretch text-white text-[22px] font-black font-title leading-tight">
+                    {title}
+                </p>
+                <p className="self-stretch text-white text-base font-normal font-serif">
+                    {description}
+                </p>
+            </div>
+        </div>
+    );
+}
