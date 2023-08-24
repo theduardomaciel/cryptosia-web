@@ -15,7 +15,7 @@ export default function Footer() {
                 Ciência e Engenharia da Computação.
             </p>
 
-            <div className="flex items-center justify-center px-4 py-2 border border-dashed border-primary-01 w-full rounded-lg">
+            <div className="flex items-center justify-center px-4 py-2 border border-dashed border-primary-200 w-full rounded-lg">
                 <p className="text-sm font-title inline-flex gap-2.5 self-center justify-center items-center">
                     Para explorar o código fonte, acesse o repositório no
                     GitHub:{" "}

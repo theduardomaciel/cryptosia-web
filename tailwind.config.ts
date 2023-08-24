@@ -9,10 +9,13 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                "primary-01": "#EED79C",
+                "primary-100": "#FFECBA",
+                "primary-200": "#EED79C",
                 "bg-01": "#121212",
-                "gray-200": "#1E1E1E",
                 "gray-100": "#2F2F2F",
+                "gray-200": "#1E1E1E",
+                "white-100": "#F5F5F4",
+                "white-200": "#FEF3C7",
             },
             /* padding: {
                 wrapper: "var(--wrapper)",

@@ -27,9 +27,12 @@ export default function Home() {
             <main className="flex w-full min-h-screen flex-col items-center justify-start px-9">
                 <Header />
                 <div className="flex w-full flex-col items-center justify-start mt-28 gap-12">
-                    <Link href={"https://google.com"} target="_blank">
-                        <div className="flex cursor-pointer items-center justify-center border border-primary-01 px-6 py-2 rounded-full gap-2 hover:outline outline-offset-2 outline-primary-01">
-                            <p className="text-xs text-primary-01">
+                    <Link
+                        href={"https://forms.gle/am8xJtjGLD2Efi6b9"}
+                        target="_blank"
+                    >
+                        <div className="flex cursor-pointer items-center justify-center border border-primary-200 px-6 py-2 rounded-full gap-2 hover:outline outline-offset-2 outline-primary-200">
+                            <p className="text-xs text-primary-200">
                                 se tiver um tempo,{" "}
                                 <span className="underline">
                                     avalie o projeto
@@ -44,7 +47,7 @@ export default function Home() {
                         <span className="relative">
                             criptografia{" "}
                             <Mark className="absolute -bottom-3 left-0" />
-                            <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-2/3 h-[300px] w-[480px] rounded-full  bg-gradient-radial from-white to-transparent blur-2xl content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-yellow-100 after:via-yellow-200 after:blur-2xl after:content-[''] dark:bg-gradient-to-br dark:from-transparent dark:to-primary-01 dark:opacity-10 after:dark:from-primary-01 after:dark:via-[#f0cf7d] after:dark:opacity-40 lg:h-[360px] z-[-1] overflow-hidden" />
+                            <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-2/3 h-[300px] w-[480px] rounded-full  bg-gradient-radial from-white to-transparent blur-2xl content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-yellow-100 after:via-yellow-200 after:blur-2xl after:content-[''] dark:bg-gradient-to-br dark:from-transparent dark:to-primary-200 dark:opacity-10 after:dark:from-primary-200 after:dark:via-[#f0cf7d] after:dark:opacity-40 lg:h-[360px] z-[-1] overflow-hidden" />
                         </span>{" "}
                         RSA simplificada
                     </h1>
@@ -54,7 +57,7 @@ export default function Home() {
                         chave pública, desencripte com a chave privada.{" "}
                     </p>
                     <Link
-                        className="w-full px-10 py-4 bg-primary-01 rounded-[50px] border border-white border-opacity-10 justify-center items-center gap-2.5 inline-flex hover:brightness-105 transition"
+                        className="w-full px-10 py-4 bg-primary-200 rounded-[50px] border border-white border-opacity-10 justify-center items-center gap-2.5 inline-flex hover:brightness-105 transition"
                         href={`/#app`}
                     >
                         <p className="text-center text-neutral-900 text-md font-bold">
@@ -66,7 +69,9 @@ export default function Home() {
                     </Link>
                     <Link
                         className="flex flex-row items-center justify-center gap-2 group"
-                        href={"https://google.com"}
+                        href={
+                            "https://meninocoiso.notion.site/como-funciona-a-Criptografia-RSA-6154246f68e749539997d2c6197d38da?pvs=25"
+                        }
                         target="_blank"
                     >
                         <span className="relative text-base group">
