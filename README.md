@@ -1,8 +1,8 @@
 <h1 align="center">
-     cryptosia
+    cryptosia
 </h1>
 
-![cover](./github/cover.png?style=flat)
+![cover](.github/cover.png?style=flat)
 
 ## 💻 Projeto
 
