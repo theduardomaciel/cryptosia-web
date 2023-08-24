@@ -9,7 +9,7 @@ export default function Header() {
                 <Logo />
             </div>
             <Link
-                href={"https://github.com/theduardomaciel/cc-md"}
+                href={"https://github.com/theduardomaciel/cryptosia"}
                 target="_blank"
             >
                 <GitHubLogoIcon

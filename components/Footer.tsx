@@ -20,7 +20,7 @@ export default function Footer() {
                     Para explorar o código fonte, acesse o repositório no
                     GitHub:{" "}
                     <Link
-                        href={"https://github.com/theduardomaciel/cc-md"}
+                        href={"https://github.com/theduardomaciel/cryptosia"}
                         target="_blank"
                     >
                         <GitHubLogoIcon
