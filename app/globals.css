@@ -5,16 +5,13 @@
 :root {
     --neutral: #000000;
     --bg-01: #121212;
-    --gray-200: #1e1e1e;
+    --bg-01-light: #fefce8;
     --gray-100: #2f2f2f;
+    --gray-200: #1e1e1e;
+    --white-100: #f5f5f4;
+    --white-200: #fef3c7;
     --primary-100: #ffecba;
     --primary-200: #eed79c;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --neutral: #ffffff;
-    }
 }
 
 html.dark {
@@ -27,6 +24,10 @@ html {
 
 body {
     font-family: var(--font-jakarta-sans);
-    color: rgb(var(--foreground-rgb));
+    color: var(--neutral);
+    background: var(--bg-01-light);
+}
+
+html.dark body {
     background: var(--bg-01);
 }

@@ -12,6 +12,7 @@ const config: Config = {
                 "primary-100": "#FFECBA",
                 "primary-200": "#EED79C",
                 "bg-01": "#121212",
+                "bg-01-light": "#FEFCE8",
                 "gray-100": "#2F2F2F",
                 "gray-200": "#1E1E1E",
                 "white-100": "#F5F5F4",

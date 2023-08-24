@@ -4,7 +4,7 @@ import {
     PublicKeyIcon,
     EncryptIcon,
     DecryptIcon,
-} from "@/public/SectionsIcons";
+} from "@/public/icons/Sections";
 
 export default function SectionsHolder() {
     return (
@@ -15,7 +15,7 @@ export default function SectionsHolder() {
             <ul className="flex flex-col items-center justify-center w-full">
                 <Section
                     id="public-key"
-                    className="rounded-tl-lg rounded-tr-lg border-b border-transparent border-b-gray-100"
+                    className="rounded-tl-lg rounded-tr-lg border-b border-transparent border-b-primary-100 dark:border-b-gray-100"
                     icon={<PublicKeyIcon className={"w-9 h-9"} />}
                     name="Gerar chave pública"
                 >
@@ -23,7 +23,7 @@ export default function SectionsHolder() {
                 </Section>
                 <Section
                     id="encrypt"
-                    className="border-b border-transparent border-b-gray-100"
+                    className="border-b border-transparent border-b-primary-100 dark:border-b-gray-100"
                     icon={<EncryptIcon className={"w-9 h-9"} />}
                     name="Encriptar"
                 >

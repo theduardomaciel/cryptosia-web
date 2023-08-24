@@ -30,10 +30,10 @@ export default function Section({
     return (
         <li
             className={clsx(
-                "transition hover:bg-gray-100 dark:hover:bg-dark-gray-300 bg-gray-200 dark:bg-dark-gray-400 w-full",
-                {
+                "transition hover:bg-primary-200 dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 dark:bg-dark-gray-400 w-full",
+                /* {
                     "bg-dark-gray-300 border border-dark-gray-100": isExpanded,
-                },
+                }, */
                 className
             )}
         >
@@ -65,7 +65,7 @@ export default function Section({
             {/* Content */}
             <div
                 className={clsx(
-                    "px-5 pt-0 overflow-hidden transition-[max-height,opacity] duration-700 max-h-0 bg-primary-200",
+                    "px-5 pt-0 overflow-hidden transition-[max-height,opacity] duration-700 max-h-0 bg-primary-100 dark:bg-primary-200",
                     {
                         "max-h-[50rem]": isExpanded,
                         "max-h-0": !isExpanded,

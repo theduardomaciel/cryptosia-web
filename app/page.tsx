@@ -2,23 +2,23 @@ import { Fragment } from "react";
 import Link from "next/link";
 
 // Components
-import Footer from "@/components/Footer";
+import Footer from "@/components/Sections/Footer";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
 
 // Icons
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
-import Star from "@/public/Star";
-import Mark from "@/public/Mark";
-import EncryptIcon from "@/public/Encrypt";
+import Star from "@/public/icons/Star";
+import Mark from "@/public/icons/Mark";
+import EncryptIcon from "@/public/icons/Encrypt";
 
 // - Cards
 import {
     ComputerIcon,
     CryptographyIcon,
     RocketIcon,
-} from "@/public/CardsIcons";
+} from "@/public/icons/Cards";
 import SectionsHolder from "@/components/Sections/Holder";
 
 export default function Home() {
@@ -31,18 +31,18 @@ export default function Home() {
                         href={"https://forms.gle/am8xJtjGLD2Efi6b9"}
                         target="_blank"
                     >
-                        <div className="flex cursor-pointer items-center justify-center border border-primary-200 px-6 py-2 rounded-full gap-2 hover:outline outline-offset-2 outline-primary-200">
-                            <p className="text-xs text-primary-200">
+                        <div className="flex cursor-pointer items-center justify-center border border-black dark:border-primary-200 px-6 py-2 rounded-full gap-2 hover:outline outline-offset-2 outline-black dark:outline-primary-200">
+                            <p className="text-xs text-black dark:text-primary-200">
                                 se tiver um tempo,{" "}
                                 <span className="underline">
                                     avalie o projeto
                                 </span>
                                 !
                             </p>
-                            <Star />
+                            <Star className="fill-black dark:fill-primary-200" />
                         </div>
                     </Link>
-                    <h1 className="text-center w-full text-white text-[42px] font-title font-black leading-tight">
+                    <h1 className="text-center w-full text-[var(--neutral)] text-[42px] font-title font-black leading-tight">
                         Proteja suas mensagens com{" "}
                         <span className="relative">
                             criptografia{" "}
@@ -51,13 +51,13 @@ export default function Home() {
                         </span>{" "}
                         RSA simplificada
                     </h1>
-                    <p className="text-center text-white text-[22px] font-normal font-serif">
+                    <p className="text-center text-[var(--neutral)] text-[22px] font-normal font-serif">
                         Suas chaves pública e privada trabalham em harmonia,
                         protegendo informações com precisão: encripte com a
                         chave pública, desencripte com a chave privada.{" "}
                     </p>
                     <Link
-                        className="w-full px-10 py-4 bg-primary-200 rounded-[50px] border border-white border-opacity-10 justify-center items-center gap-2.5 inline-flex hover:brightness-105 transition"
+                        className="w-full px-10 py-4 bg-primary-100 dark:bg-primary-200 rounded-[50px] border border-white border-opacity-10 justify-center items-center gap-2.5 inline-flex hover:brightness-105 transition"
                         href={`/#app`}
                     >
                         <p className="text-center text-neutral-900 text-md font-bold">
@@ -76,7 +76,7 @@ export default function Home() {
                     >
                         <span className="relative text-base group">
                             aprender mais{" "}
-                            <div className="absolute w-full scale-x-0 h-[2px] transition bg-white group-hover:scale-x-100 origin-left" />{" "}
+                            <div className="absolute w-full scale-x-0 h-[2px] transition bg-[var(--neutral)] group-hover:scale-x-100 origin-left" />{" "}
                         </span>
                         <ArrowTopRightIcon className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>

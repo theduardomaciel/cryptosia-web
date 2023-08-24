@@ -16,7 +16,7 @@ export function PublicKeyIcon({ className }: { className?: string }) {
                 width="36"
                 height="36"
             >
-                <rect width="36" height="36" fill="var(--neutral)" />
+                <rect width="36" height="36" fill="#FFFFFF" />
             </mask>
             <g mask="url(#mask0_107_148)">
                 <path
@@ -46,7 +46,7 @@ export function EncryptIcon({ className }: { className?: string }) {
                 width="36"
                 height="36"
             >
-                <rect width="36" height="36" fill="var(--neutral)" />
+                <rect width="36" height="36" fill="#FFFFFF" />
             </mask>
             <g mask="url(#mask0_107_153)">
                 <path
@@ -76,7 +76,7 @@ export function DecryptIcon({ className }: { className?: string }) {
                 width="36"
                 height="36"
             >
-                <rect width="36" height="36" fill="var(--neutral)" />
+                <rect width="36" height="36" fill="#FFFFFF" />
             </mask>
             <g mask="url(#mask0_107_158)">
                 <path
