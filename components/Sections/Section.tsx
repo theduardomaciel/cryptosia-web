@@ -30,16 +30,19 @@ export default function Section({
     return (
         <li
             className={clsx(
-                "transition hover:bg-primary-200 dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 dark:bg-dark-gray-400 w-full",
+                "flex flex-col lg:flex-row transition hover:bg-primary-200 dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 dark:bg-dark-gray-400 max-md:w-full lg:w-fit lg:h-96",
                 /* {
                     "bg-dark-gray-300 border border-dark-gray-100": isExpanded,
                 }, */
+                {
+                    "flex-1": isExpanded,
+                },
                 className
             )}
         >
             {/* Header */}
             <div
-                className="cursor-pointer transition flex flex-row px-5 items-center justify-between w-full h-fit py-5 gap-x-3"
+                className="cursor-pointer transition flex flex-row px-5 items-center lg:items-end justify-between w-full lg:w-40 py-5 gap-x-3"
                 onClick={
                     () => router.replace(`?app=${id}`, { scroll: false })
                     /* isExpanded
@@ -49,26 +52,18 @@ export default function Section({
             >
                 <div className="flex flex-row flex-wrap items-center justify-start gap-x-6">
                     {icon}
-                    <p className="text-text-100 font-bold font-title leading-tight text-2xl">
+                    <p className="text-text-100 font-bold font-title leading-tight text-2xl break-words overflow-ellipsis">
                         {name}
                     </p>
                 </div>
-                <ChevronDownIcon
-                    width={18}
-                    height={18}
-                    color="var(--text-200)"
-                    className={clsx("min-w-[18px] transition-transform", {
-                        "transform rotate-180": isExpanded,
-                    })}
-                />
             </div>
             {/* Content */}
             <div
                 className={clsx(
-                    "px-5 pt-0 overflow-hidden transition-[max-height,opacity] duration-700 max-h-0 bg-primary-100 dark:bg-primary-200",
+                    "max-md:px-5 pt-0 overflow-hidden transition-[max-height,opacity] lg:transition-[max-width,opacity] duration-700 lg:duration-700 bg-primary-100 dark:bg-primary-200 w-full",
                     {
-                        "max-h-[50rem]": isExpanded,
-                        "max-h-0": !isExpanded,
+                        "max-md:max-h-[50rem] lg:max-w-[50rem]": isExpanded,
+                        "max-md:max-h-0 lg:max-w-0": !isExpanded,
                     }
                 )}
             >

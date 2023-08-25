@@ -26,7 +26,7 @@ const SelectTrigger = React.forwardRef<
     <SelectPrimitive.Trigger
         ref={ref}
         className={cn(
-            "flex h-10 items-center justify-between rounded-md border border-gray-100 bg-transparent px-4 text-sm placeholder:text-neutral focus:outline-none focus:ring-0 dark:focus:ring-2 focus:ring-[var(--neutral)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-dark-gray-100 dark:text-[var(--neutral)] focus:bg-gray-300 dark:focus:bg-gray-200 focus:ring-offset-transparent dark:focus:ring-offset-dark-gray-400 gap-x-select enabled:hover:bg-white-100 enabled:dark:hover:bg-gray-200 transition-colors gap-2",
+            "flex h-10 items-center justify-between rounded-md border border-black dark:border-gray-100 bg-transparent px-4 text-sm placeholder:text-neutral focus:outline-none focus:ring-0 dark:focus:ring-2 focus:ring-[var(--neutral)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:text-[var(--neutral)] focus:bg-gray-300 dark:focus:bg-gray-200 focus:ring-offset-transparent dark:focus:ring-offset-dark-gray-400 gap-x-select enabled:hover:bg-white-100 enabled:dark:hover:bg-gray-200 transition-colors gap-2",
             className
         )}
         {...props}
@@ -46,7 +46,7 @@ const SelectContent = React.forwardRef<
         <SelectPrimitive.Content
             ref={ref}
             className={cn(
-                "animate-in fade-in-80 relative z-50 overflow-hidden rounded-md border text-[var(--neutral)] dark:text-[var(--neutral)] shadow-md dark:border-dark-gray-100 border-[var(--neutral)] bg-white-200 dark:bg-gray-200",
+                "animate-in fade-in-80 relative z-50 overflow-hidden rounded-md border text-[var(--neutral)] dark:text-[var(--neutral)] shadow-md dark:border-gray-100 border-[var(--neutral)] bg-white-200 dark:bg-gray-200",
                 className
             )}
             {...props}

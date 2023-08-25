@@ -32,7 +32,7 @@ export default function Home() {
                         target="_blank"
                     >
                         <div className="flex cursor-pointer items-center justify-center border border-black dark:border-primary-200 px-6 py-2 rounded-full gap-2 hover:outline outline-offset-2 outline-black dark:outline-primary-200">
-                            <p className="text-xs text-black dark:text-primary-200">
+                            <p className="text-xs lg:text-sm text-black dark:text-primary-200">
                                 se tiver um tempo,{" "}
                                 <span className="underline">
                                     avalie o projeto
@@ -42,7 +42,7 @@ export default function Home() {
                             <Star className="fill-black dark:fill-primary-200" />
                         </div>
                     </Link>
-                    <h1 className="text-center w-full text-[var(--neutral)] text-[42px] font-title font-black leading-tight">
+                    <h1 className="text-center w-full text-[var(--neutral)] text-[42px] lg:text-6xl font-title font-black leading-tight">
                         Proteja suas mensagens com{" "}
                         <span className="relative">
                             criptografia{" "}
@@ -51,37 +51,39 @@ export default function Home() {
                         </span>{" "}
                         RSA simplificada
                     </h1>
-                    <p className="text-center text-[var(--neutral)] text-[22px] font-normal font-serif">
+                    <p className="text-center text-[var(--neutral)] text-[22px] lg:text-xl lg:max-w-3xl font-normal font-serif">
                         Suas chaves pública e privada trabalham em harmonia,
                         protegendo informações com precisão: encripte com a
                         chave pública, desencripte com a chave privada.{" "}
                     </p>
-                    <Link
-                        className="w-full px-10 py-4 bg-primary-100 dark:bg-primary-200 rounded-[50px] border border-white border-opacity-10 justify-center items-center gap-2.5 inline-flex hover:brightness-105 transition"
-                        href={`/#app`}
-                    >
-                        <p className="text-center text-neutral-900 text-md font-bold">
-                            Começar a criptografar
-                        </p>
-                        <div className="w-7 h-7 relative">
-                            <EncryptIcon />
-                        </div>
-                    </Link>
-                    <Link
-                        className="flex flex-row items-center justify-center gap-2 group"
-                        href={
-                            "https://meninocoiso.notion.site/como-funciona-a-Criptografia-RSA-6154246f68e749539997d2c6197d38da?pvs=25"
-                        }
-                        target="_blank"
-                    >
-                        <span className="relative text-base group">
-                            aprender mais{" "}
-                            <div className="absolute w-full scale-x-0 h-[2px] transition bg-[var(--neutral)] group-hover:scale-x-100 origin-left" />{" "}
-                        </span>
-                        <ArrowTopRightIcon className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
+                    <div className="flex flex-col lg:flex-row items-center justify-start gap-9">
+                        <Link
+                            className="w-full lg:w-fit px-10 py-4 bg-primary-100 border-primary-200 dark:bg-primary-200 rounded-[50px] border border-opacity-10 justify-center items-center gap-2.5 inline-flex hover:brightness-105 transition"
+                            href={`/#app`}
+                        >
+                            <p className="text-center text-neutral-900 text-md font-bold">
+                                Começar a criptografar
+                            </p>
+                            <div className="w-7 h-7 relative">
+                                <EncryptIcon />
+                            </div>
+                        </Link>
+                        <Link
+                            className="flex flex-row items-center justify-center gap-2 group"
+                            href={
+                                "https://meninocoiso.notion.site/como-funciona-a-Criptografia-RSA-6154246f68e749539997d2c6197d38da?pvs=25"
+                            }
+                            target="_blank"
+                        >
+                            <span className="relative text-base group">
+                                aprender mais{" "}
+                                <div className="absolute w-full scale-x-0 h-[2px] transition bg-[var(--neutral)] group-hover:scale-x-100 origin-left" />{" "}
+                            </span>
+                            <ArrowTopRightIcon className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </Link>
+                    </div>
                 </div>
-                <ul className="flex flex-col w-full items-center justify-start my-14 gap-14">
+                <ul className="flex flex-col lg:flex-row w-full items-center justify-start my-28 gap-14">
                     <Card
                         icon={<ComputerIcon />}
                         title="Tudo em um só lugar"
