@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+    --wrapper: 2.25rem;
     --neutral: #000000;
     --bg-01: #121212;
     --bg-01-light: #fefce8;
@@ -12,6 +13,12 @@
     --white-200: #fef3c7;
     --primary-100: #ffecba;
     --primary-200: #eed79c;
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --wrapper: 6rem;
+    }
 }
 
 html.dark {

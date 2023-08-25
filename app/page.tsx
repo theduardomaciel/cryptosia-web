@@ -10,7 +10,7 @@ import Card from "@/components/Card";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
 import Star from "@/public/icons/Star";
-import Mark from "@/public/icons/Mark";
+import Mark from "@/public/Mark";
 import EncryptIcon from "@/public/icons/Encrypt";
 
 // - Cards
@@ -24,7 +24,7 @@ import SectionsHolder from "@/components/Sections/Holder";
 export default function Home() {
     return (
         <Fragment>
-            <main className="flex w-full min-h-screen flex-col items-center justify-start px-9">
+            <main className="flex w-full min-h-screen flex-col items-center justify-start px-[var(--wrapper)]">
                 <Header />
                 <div className="flex w-full flex-col items-center justify-start mt-28 gap-12">
                     <Link
@@ -46,7 +46,7 @@ export default function Home() {
                         Proteja suas mensagens com{" "}
                         <span className="relative">
                             criptografia{" "}
-                            <Mark className="absolute -bottom-3 left-0" />
+                            <Mark className="absolute -bottom-3 left-0 lg:w-[95%]" />
                             <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-2/3 h-[300px] w-[480px] rounded-full  bg-gradient-radial from-white to-transparent blur-2xl content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-yellow-100 after:via-yellow-200 after:blur-2xl after:content-[''] dark:bg-gradient-to-br dark:from-transparent dark:to-primary-200 dark:opacity-10 after:dark:from-primary-200 after:dark:via-[#f0cf7d] after:dark:opacity-40 lg:h-[360px] z-[-1] overflow-hidden" />
                         </span>{" "}
                         RSA simplificada

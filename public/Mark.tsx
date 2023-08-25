@@ -1,8 +1,9 @@
 export default function Mark({ className }: { className?: string }) {
     return (
         <svg
-            width="261"
+            width="100%"
             height="11"
+            preserveAspectRatio="none"
             viewBox="0 0 261 11"
             fill="none"
             className={className}

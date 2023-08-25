@@ -27,13 +27,17 @@ export default function Section({
         currentSection == id || (!currentSection && id == "public-key");
 
     // O uso da tag !important (! no tailwind) é necessário para sobrescrever o "lg:max-w-fit" quando houver animação, visto que já existe um valor definido para o mesmo na versão mobile
+
+    // Gambiarra: o valor 50rem no atual "lg:!max-w-[75vw]" faz a animação funcionar sem nenhum travamento, no entanto, o valor 50rem é menor que o tamanho da tela, fazendo com que o conteúdo não ocupe todo o tamanho.
+
+    // Para alterar o tamanho do "header" da seção, altere o valor do "lg:w-48" para o tamanho desejado, e o valor do "lg:!max-w-[12rem]" para o tamanho desejado (o equivalente ao tamanho no tailwind)
     return (
         <li
             className={clsx(
-                "flex flex-col lg:flex-row group aria-expanded:hover:bg-primary-200 aria-expanded:dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 dark:bg-dark-gray-400 w-full lg:max-w-fit lg:h-96 overflow-hidden ease-in-out flex-grow lg:transition-[max-width] lg:duration-700",
+                "flex flex-col lg:flex-row group aria-expanded:hover:bg-primary-200 aria-expanded:dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 w-full lg:max-w-fit lg:h-96 overflow-hidden ease-in-out flex-grow lg:transition-[max-width] lg:duration-700",
                 {
-                    "lg:!max-w-[50rem]": isExpanded,
-                    "lg:!max-w-[10rem]": !isExpanded,
+                    "lg:!max-w-full": isExpanded,
+                    "lg:!max-w-[12rem]": !isExpanded,
                 },
                 className
             )}
@@ -41,7 +45,7 @@ export default function Section({
         >
             {/* Header */}
             <div
-                className="group-aria-expanded:cursor-pointer transition flex flex-row px-5 items-center lg:items-end justify-between lg:w-40 py-5 gap-x-3"
+                className="group-aria-expanded:cursor-pointer transition flex flex-row px-5 items-center lg:items-end justify-between lg:w-48 py-5 gap-x-3"
                 onClick={
                     () => router.replace(`?app=${id}`, { scroll: false })
                     /* isExpanded
