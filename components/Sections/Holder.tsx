@@ -19,17 +19,17 @@ export default function SectionsHolder() {
                     icon={<PublicKeyIcon className={"w-9 h-9"} />}
                     name="Gerar chave pública"
                 >
-                    <div className="flex w-1/3 bg-transparent">
+                    <div className="flex flex-1 bg-transparent">
                         <p>testando</p>
                     </div>
                 </Section>
                 <Section
                     id="encrypt"
-                    className="border-b lg:border-r border-transparent border-r-primary-100 border-b-primary-100 lg:dark:border-r-gray-100 dark:border-b-gray-100"
+                    className="max-md:border-b lg:border-r border-transparent border-r-primary-100 border-b-primary-100 lg:dark:border-r-gray-100 dark:border-b-gray-100"
                     icon={<EncryptIcon className={"w-9 h-9"} />}
                     name="Encriptar"
                 >
-                    <div className="flex w-full bg-transparent">
+                    <div className="flex bg-transparent">
                         <p>testando</p>
                     </div>
                 </Section>
@@ -39,7 +39,7 @@ export default function SectionsHolder() {
                     icon={<DecryptIcon className={"w-9 h-9"} />}
                     name="Desencriptar"
                 >
-                    <div className="flex w-1/3 bg-transparent">
+                    <div className="flex bg-transparent">
                         <p>testando</p>
                     </div>
                 </Section>

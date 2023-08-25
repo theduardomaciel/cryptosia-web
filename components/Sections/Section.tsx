@@ -10,7 +10,6 @@ interface SectionProps {
     icon: React.ReactNode;
     children?: React.ReactNode;
     className?: string;
-    isisExpanded?: boolean;
 }
 
 export default function Section({
@@ -30,19 +29,17 @@ export default function Section({
     return (
         <li
             className={clsx(
-                "flex flex-col lg:flex-row transition hover:bg-primary-200 dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 dark:bg-dark-gray-400 max-md:w-full lg:w-fit lg:h-96",
-                /* {
-                    "bg-dark-gray-300 border border-dark-gray-100": isExpanded,
-                }, */
+                "flex flex-col lg:flex-row hover:bg-primary-200 dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 dark:bg-dark-gray-400 max-md:w-full max-w-fit lg:h-96 overflow-hidden ease-in-out flex-grow transition-[max-height,opacity] lg:transition-[max-width,opacity] duration-700 lg:duration-700",
                 {
-                    "flex-1": isExpanded,
+                    "max-md:max-h-[50rem] lg:max-w-[50rem]": isExpanded,
+                    "max-md:max-h-0 lg:max-w-[10rem]": !isExpanded,
                 },
                 className
             )}
         >
             {/* Header */}
             <div
-                className="cursor-pointer transition flex flex-row px-5 items-center lg:items-end justify-between w-full lg:w-40 py-5 gap-x-3"
+                className="cursor-pointer transition flex flex-row px-5 items-center lg:items-end justify-between lg:w-40 py-5 gap-x-3"
                 onClick={
                     () => router.replace(`?app=${id}`, { scroll: false })
                     /* isExpanded
@@ -60,11 +57,11 @@ export default function Section({
             {/* Content */}
             <div
                 className={clsx(
-                    "max-md:px-5 pt-0 overflow-hidden transition-[max-height,opacity] lg:transition-[max-width,opacity] duration-700 lg:duration-700 bg-primary-100 dark:bg-primary-200 w-full",
-                    {
+                    "max-md:px-5 pt-0 overflow-hidden ease-in-out flex-grow transition-[max-height,opacity] lg:transition-[max-width,opacity] duration-700 lg:duration-700 bg-primary-100 dark:bg-primary-200 flex-1"
+                    /* {
                         "max-md:max-h-[50rem] lg:max-w-[50rem]": isExpanded,
                         "max-md:max-h-0 lg:max-w-0": !isExpanded,
-                    }
+                    } */
                 )}
             >
                 {children && children}
