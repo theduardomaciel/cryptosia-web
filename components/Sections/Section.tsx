@@ -26,20 +26,22 @@ export default function Section({
     const isExpanded =
         currentSection == id || (!currentSection && id == "public-key");
 
+    // O uso da tag !important (! no tailwind) é necessário para sobrescrever o "lg:max-w-fit" quando houver animação, visto que já existe um valor definido para o mesmo na versão mobile
     return (
         <li
             className={clsx(
-                "flex flex-col lg:flex-row hover:bg-primary-200 dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 dark:bg-dark-gray-400 max-md:w-full max-w-fit lg:h-96 overflow-hidden ease-in-out flex-grow transition-[max-height,opacity] lg:transition-[max-width,opacity] duration-700 lg:duration-700",
+                "flex flex-col lg:flex-row group aria-expanded:hover:bg-primary-200 aria-expanded:dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 dark:bg-dark-gray-400 w-full lg:max-w-fit lg:h-96 overflow-hidden ease-in-out flex-grow lg:transition-[max-width] lg:duration-700",
                 {
-                    "max-md:max-h-[50rem] lg:max-w-[50rem]": isExpanded,
-                    "max-md:max-h-0 lg:max-w-[10rem]": !isExpanded,
+                    "lg:!max-w-[50rem]": isExpanded,
+                    "lg:!max-w-[10rem]": !isExpanded,
                 },
                 className
             )}
+            aria-expanded={!isExpanded}
         >
             {/* Header */}
             <div
-                className="cursor-pointer transition flex flex-row px-5 items-center lg:items-end justify-between lg:w-40 py-5 gap-x-3"
+                className="group-aria-expanded:cursor-pointer transition flex flex-row px-5 items-center lg:items-end justify-between lg:w-40 py-5 gap-x-3"
                 onClick={
                     () => router.replace(`?app=${id}`, { scroll: false })
                     /* isExpanded
@@ -57,11 +59,11 @@ export default function Section({
             {/* Content */}
             <div
                 className={clsx(
-                    "max-md:px-5 pt-0 overflow-hidden ease-in-out flex-grow transition-[max-height,opacity] lg:transition-[max-width,opacity] duration-700 lg:duration-700 bg-primary-100 dark:bg-primary-200 flex-1"
-                    /* {
-                        "max-md:max-h-[50rem] lg:max-w-[50rem]": isExpanded,
-                        "max-md:max-h-0 lg:max-w-0": !isExpanded,
-                    } */
+                    "max-md:px-5 pt-0 overflow-hidden transition-[max-height,opacity] duration-700 bg-primary-100 dark:bg-primary-200 flex-1",
+                    {
+                        "max-lg:max-h-[50rem]": isExpanded,
+                        "max-lg:max-h-0": !isExpanded,
+                    }
                 )}
             >
                 {children && children}
