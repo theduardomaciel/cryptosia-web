@@ -33,8 +33,21 @@ body {
     font-family: var(--font-jakarta-sans);
     color: var(--neutral);
     background: var(--bg-01-light);
+
+    overflow-y: scroll;
 }
 
 html.dark body {
     background: var(--bg-01);
+}
+
+/* NUMBER INPUT RESETS */
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
 }

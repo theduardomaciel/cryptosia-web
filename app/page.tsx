@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import Link from "next/link";
 
 // Components
-import Footer from "@/components/Sections/Footer";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
 

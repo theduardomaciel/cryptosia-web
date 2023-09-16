@@ -2,8 +2,6 @@
 import clsx from "clsx";
 import { useSearchParams, useRouter } from "next/navigation";
 
-import { ChevronDownIcon } from "@radix-ui/react-icons";
-
 interface SectionProps {
     id: string;
     name: string;
@@ -36,7 +34,7 @@ export default function Section({
             className={clsx(
                 "flex flex-col lg:flex-row group aria-expanded:hover:bg-primary-200 aria-expanded:dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 w-full lg:max-w-fit lg:h-96 overflow-hidden ease-in-out flex-grow lg:transition-[max-width] lg:duration-700",
                 {
-                    "lg:!max-w-full": isExpanded,
+                    "lg:!max-w-[calc(100vw-24em-var(--wrapper)*2)]": isExpanded,
                     "lg:!max-w-[12rem]": !isExpanded,
                 },
                 className
@@ -61,16 +59,18 @@ export default function Section({
                 </div>
             </div>
             {/* Content */}
-            <div
-                className={clsx(
-                    "max-md:px-5 pt-0 overflow-hidden transition-[max-height,opacity] duration-700 bg-primary-100 dark:bg-primary-200 flex-1",
-                    {
-                        "max-lg:max-h-[50rem]": isExpanded,
-                        "max-lg:max-h-0": !isExpanded,
-                    }
-                )}
-            >
-                {children && children}
+            <div className="flex flex-1 overflow-hidden">
+                <div
+                    className={clsx(
+                        "max-md:px-5 pt-0 min-w-[calc(100vw-36rem-var(--wrapper)*2)] transition-[max-height,opacity] duration-700 bg-primary-100 dark:bg-primary-200",
+                        {
+                            "max-lg:max-h-[50rem]": isExpanded,
+                            "max-lg:max-h-0": !isExpanded,
+                        }
+                    )}
+                >
+                    {children && children}
+                </div>
             </div>
         </li>
     );

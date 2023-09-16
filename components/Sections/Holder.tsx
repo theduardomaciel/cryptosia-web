@@ -1,4 +1,6 @@
-import Section from "./Section";
+import Section from "./subcomponents/Section";
+
+import Section1 from "./Section1";
 
 import {
     PublicKeyIcon,
@@ -19,9 +21,7 @@ export default function SectionsHolder() {
                     icon={<PublicKeyIcon className={"w-9 h-9"} />}
                     name="Gerar chave pública"
                 >
-                    <div className="flex flex-1 bg-transparent">
-                        <p>testando</p>
-                    </div>
+                    <Section1 />
                 </Section>
                 <Section
                     id="encrypt"
