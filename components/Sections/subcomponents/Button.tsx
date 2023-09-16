@@ -53,7 +53,7 @@ export default function SectionButton({ query, children }: Props) {
                                 "?" +
                                 createQueryString(
                                     query.key,
-                                    (query.value - 1).toString()
+                                    (query.value - 2).toString()
                                 ),
                             { scroll: false }
                         )

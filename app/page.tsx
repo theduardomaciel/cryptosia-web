@@ -24,7 +24,7 @@ import SectionsHolder from "@/components/Sections/Holder";
 export default function Home() {
     return (
         <Fragment>
-            <main className="flex w-full min-h-screen flex-col items-center justify-start px-[var(--wrapper)]">
+            <main className="flex w-screen min-h-screen flex-col items-center justify-start px-[var(--wrapper)]">
                 <Header />
                 <div className="flex w-full flex-col items-center justify-start mt-28 gap-12">
                     <Link

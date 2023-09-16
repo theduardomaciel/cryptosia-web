@@ -26,6 +26,11 @@ html.dark {
 }
 
 html {
+    text-rendering: optimizeLegibility;
+    margin: 0;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
 }
 
@@ -34,7 +39,8 @@ body {
     color: var(--neutral);
     background: var(--bg-01-light);
 
-    overflow-y: scroll;
+    overflow-y: overlay;
+    overflow-x: hidden;
 }
 
 html.dark body {
