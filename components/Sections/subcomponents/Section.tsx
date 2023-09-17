@@ -62,7 +62,7 @@ export default function Section({
             <div className="flex flex-1 overflow-hidden">
                 <div
                     className={clsx(
-                        "max-md:px-5 pt-0 min-w-[calc(100vw-36rem-var(--wrapper)*2)] transition-[max-height,opacity] duration-700 bg-primary-100 dark:bg-primary-200",
+                        "pt-0 w-full lg:min-w-[calc(100vw-36rem-var(--wrapper)*2)] transition-[max-height,opacity] duration-700 bg-primary-100 dark:bg-primary-200",
                         {
                             "max-lg:max-h-[50rem]": isExpanded,
                             "max-lg:max-h-0": !isExpanded,

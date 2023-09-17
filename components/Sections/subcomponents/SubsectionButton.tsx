@@ -6,15 +6,15 @@ import { Button } from "../../ui/Button";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import clsx from "clsx";
 
-interface Props {
-    query: {
+interface Props extends React.HTMLAttributes<HTMLButtonElement> {
+    query?: {
         key: string;
         value: number;
     };
     children?: React.ReactNode;
 }
 
-export default function SectionButton({ query, children }: Props) {
+export default function SubsectionButton({ query, children, ...rest }: Props) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams()!;
@@ -39,24 +39,29 @@ export default function SectionButton({ query, children }: Props) {
                 className={clsx(
                     "flex items-center justify-center w-1/6 overflow-hidden ease-in-out flex-grow max-w-[0px] transition-all duration-500",
                     {
-                        "!max-w-[10%] mr-2.5":
+                        "!max-w-[5rem] mr-2.5":
                             currentSubsection &&
-                            parseInt(currentSubsection) > 0,
+                            parseInt(currentSubsection) > 0 &&
+                            parseInt(currentSubsection) < 2,
                     }
                 )}
             >
                 <Button
-                    className="flex flex-1"
+                    className={clsx("flex flex-1", {
+                        "disabled: opacity-50": !query,
+                    })}
                     onClick={() =>
-                        router.push(
-                            pathname +
-                                "?" +
-                                createQueryString(
-                                    query.key,
-                                    (query.value - 2).toString()
-                                ),
-                            { scroll: false }
-                        )
+                        query
+                            ? router.push(
+                                  pathname +
+                                      "?" +
+                                      createQueryString(
+                                          query.key,
+                                          (query.value - 2).toString()
+                                      ),
+                                  { scroll: false }
+                              )
+                            : {}
                     }
                 >
                     <ArrowLeftIcon width={24} height={24} color="white" />
@@ -64,16 +69,19 @@ export default function SectionButton({ query, children }: Props) {
             </div>
             <Button
                 onClick={() =>
-                    router.replace(
-                        pathname +
-                            "?" +
-                            createQueryString(
-                                query.key,
-                                query.value.toString()
-                            ),
-                        { scroll: false }
-                    )
+                    query
+                        ? router.replace(
+                              pathname +
+                                  "?" +
+                                  createQueryString(
+                                      query.key,
+                                      query.value.toString()
+                                  ),
+                              { scroll: false }
+                          )
+                        : {}
                 }
+                {...rest}
             >
                 {children}
             </Button>

@@ -11,7 +11,7 @@ import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
 import Star from "@/public/icons/Star";
 import Mark from "@/public/Mark";
-import EncryptIcon from "@/public/icons/Encrypt";
+import EncryptedIcon from "@/public/icons/Encrypted";
 
 // - Cards
 import {
@@ -65,7 +65,7 @@ export default function Home() {
                                 Começar a criptografar
                             </p>
                             <div className="w-7 h-7 relative">
-                                <EncryptIcon />
+                                <EncryptedIcon />
                             </div>
                         </Link>
                         <Link
@@ -83,7 +83,7 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
-                <ul className="flex flex-col lg:flex-row w-full items-center justify-start my-28 gap-14">
+                <ul className="flex flex-col lg:flex-row w-full items-start justify-between my-28 gap-14">
                     <Card
                         icon={<ComputerIcon />}
                         title="Tudo em um só lugar"

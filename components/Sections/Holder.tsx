@@ -1,12 +1,14 @@
 import Section from "./subcomponents/Section";
 
-import Section1 from "./Section1";
-
 import {
     PublicKeyIcon,
     EncryptIcon,
     DecryptIcon,
 } from "@/public/icons/Sections";
+
+import Section1 from "./Section1";
+import Section2 from "./Section2";
+import Section3 from "./Section3";
 
 export default function SectionsHolder() {
     return (
@@ -29,9 +31,7 @@ export default function SectionsHolder() {
                     icon={<EncryptIcon className={"w-9 h-9"} />}
                     name="Encriptar"
                 >
-                    <div className="flex bg-transparent">
-                        <p>testando</p>
-                    </div>
+                    <Section2 />
                 </Section>
                 <Section
                     id="decrypt"
@@ -39,9 +39,7 @@ export default function SectionsHolder() {
                     icon={<DecryptIcon className={"w-9 h-9"} />}
                     name="Desencriptar"
                 >
-                    <div className="flex bg-transparent">
-                        <p>testando</p>
-                    </div>
+                    <Section3 />
                 </Section>
             </ul>
         </div>

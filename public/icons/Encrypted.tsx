@@ -1,4 +1,4 @@
-export default function EncryptIcon() {
+export default function EncryptedIcon() {
     return (
         <svg
             width="28"

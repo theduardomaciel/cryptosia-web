@@ -22,4 +22,68 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 );
 Input.displayName = "Input";
 
-export { Input };
+const InputRoot = React.forwardRef<HTMLDivElement, InputProps>(
+    ({ className, type, ...props }, ref) => {
+        return (
+            <div
+                className={cn(
+                    "flex flex-col items-start justify-start gap-2",
+                    className
+                )}
+                ref={ref}
+                {...props}
+            />
+        );
+    }
+);
+InputRoot.displayName = "InputRoot";
+
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { cva, type VariantProps } from "class-variance-authority";
+
+const labelVariants = cva(
+    "font-medium leading-none lg:leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+);
+
+const InputLabel = React.forwardRef<
+    React.ElementRef<typeof LabelPrimitive.Root>,
+    React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
+        VariantProps<typeof labelVariants>
+>(({ className, ...props }, ref) => (
+    <LabelPrimitive.Root
+        ref={ref}
+        className={cn(
+            "text-black text-lg lg:text-base font-normal font-serif",
+            labelVariants(),
+            className
+        )}
+        {...props}
+    />
+));
+InputLabel.displayName = LabelPrimitive.Root.displayName;
+
+export interface InputHeaderProps
+    extends React.InputHTMLAttributes<HTMLInputElement> {
+    icon?: React.ReactNode;
+}
+
+const InputHeader = React.forwardRef<HTMLDivElement, InputHeaderProps>(
+    ({ className, icon, children, ...props }, ref) => {
+        return (
+            <div
+                className={cn(
+                    "flex flex-row items-center justify-start w-full gap-2",
+                    className
+                )}
+                ref={ref}
+                {...props}
+            >
+                {icon}
+                <InputLabel>{children}</InputLabel>
+            </div>
+        );
+    }
+);
+InputHeader.displayName = "InputHeader";
+
+export { Input, InputRoot, InputLabel, InputHeader };

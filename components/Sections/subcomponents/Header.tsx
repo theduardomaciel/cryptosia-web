@@ -1,20 +1,39 @@
 "use client";
 
-import type { Subsection } from "./Wrapper";
+import { cn } from "@/lib/utils";
+import type { Subsection } from "./MultisectionWrapper";
 
 interface Props {
     index: number;
+    amount: number;
     subsection: Subsection;
 }
 
-export default function SectionHeader({ index, subsection }: Props) {
+export default function SectionHeader({ index, amount, subsection }: Props) {
     return (
-        <div className="flex min-w-full flex-col items-start justify-start gap-2.5 transition-[500ms]">
+        <div
+            className={cn(
+                "flex min-w-full flex-col items-start justify-start gap-2.5 transition-[500ms]",
+                {
+                    "items-center justify-center": index == amount - 1,
+                }
+            )}
+        >
             <h3 className="text-black text-2xl font-extrabold font-title leading-tight pointer-events-none inline-flex items-center justify-start flex-row gap-3">
-                {index + 1}. {subsection.title}
+                {index != amount - 1 && `${index + 1}.`} {subsection.title}
             </h3>
             <div className="border-b w-full border-b-black rounded" />
-            <SectionDescription>{subsection.description}</SectionDescription>
+            <div className="flex flex-col items-start justify-start gap-2.5">
+                {subsection.description instanceof Array ? (
+                    subsection.description.map((description) => (
+                        <SectionDescription>{description}</SectionDescription>
+                    ))
+                ) : (
+                    <SectionDescription>
+                        {subsection.description}
+                    </SectionDescription>
+                )}
+            </div>
         </div>
     );
 }
@@ -37,7 +56,7 @@ export function SectionDescription({
     children: React.ReactNode;
 }) {
     return (
-        <p className="text-black text-lg font-normal font-serif leading-none whitespace-pre-line">
+        <p className="text-black text-lg lg:text-base font-normal font-serif leading-none lg:leading-none whitespace-pre-line">
             {children}
         </p>
     );
