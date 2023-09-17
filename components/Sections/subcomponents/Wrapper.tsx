@@ -16,7 +16,7 @@ interface Props {
 
 export default function SectionWrapper({ children }: Props) {
     return (
-        <div className="flex h-full w-full flex-col items-start justify-start py-6 px-5 gap-4 lg:justify-center lg:px-[6.5%]">
+        <div className="flex h-full w-full flex-col items-start justify-start py-6 px-5 gap-4 xl:justify-center xl:px-[6.5%]">
             {children}
         </div>
     );
@@ -40,10 +40,10 @@ export function MultisectionsSectionWrapper({
     const currentSubsection = parseInt(currentSubsectionParam);
 
     return (
-        <div className="flex h-full w-full flex-col items-start justify-start py-6 px-5 gap-4 lg:justify-center lg:py-16 lg:px-[5%] overflow-x-hidden overflow-y-hidden transition-transform">
+        <div className="flex h-full w-full flex-col items-start justify-start py-6 px-5 gap-4 xl:justify-center xl:py-16 xl:px-[5%] overflow-x-hidden overflow-y-hidden transition-transform">
             <div
                 /* O gap aqui deve corresponder ao dobro do padding horizontal (px) da div parente (no mobile) */
-                className="flex flex-row items-start justify-start gap-10 lg:gap-[5%]"
+                className="flex flex-row items-start justify-start gap-10 xl:gap-[5%]"
                 style={{
                     transform: `translateX(calc(-${currentSubsection} * 35%))`,
                     transition: "transform 0.5s ease-in-out",
@@ -54,10 +54,11 @@ export function MultisectionsSectionWrapper({
                         /* O cálculo da largura é o seguinte: 
                         /* Versão mobile (design vertical): 100vw - (px da div no topo da hierarquia * 2) - [var(--wrapper) * 2] */
                         /* Versão desktop (design horizontal): 100vw - [var(--wrapper) * 2] - [tamanho dos 3 "headers" das seções (cada um vale 12, portanto: 12 * 3 = 36rem)] */
-                        className="flex h-full w-[calc(100vw-2.5rem-var(--wrapper)*2)] lg:w-[calc(100vw-var(--wrapper)*2-36rem)] flex-col items-start justify-start gap-4 transition-opacity duration-700"
+                        className="flex h-full w-[calc(100vw-2.5rem-var(--wrapper)*2)] xl:w-[calc(100vw-var(--wrapper)*2-36rem)] flex-col items-start justify-start gap-4 transition-opacity duration-700"
                         style={{
                             opacity: index == currentSubsection ? 1 : 0,
                         }}
+                        key={index}
                     >
                         <SectionHeader
                             index={index}

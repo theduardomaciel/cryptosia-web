@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { Subsection } from "./MultisectionWrapper";
+import type { Subsection } from "./Wrapper";
 
 interface Props {
     index: number;
@@ -25,9 +25,13 @@ export default function SectionHeader({ index, amount, subsection }: Props) {
             <div className="border-b w-full border-b-black rounded" />
             <div className="flex flex-col items-start justify-start gap-2.5">
                 {subsection.description instanceof Array ? (
-                    subsection.description.map((description) => (
-                        <SectionDescription>{description}</SectionDescription>
-                    ))
+                    subsection.description.map(
+                        (description: string, index: number) => (
+                            <SectionDescription key={index}>
+                                {description}
+                            </SectionDescription>
+                        )
+                    )
                 ) : (
                     <SectionDescription>
                         {subsection.description}
@@ -56,7 +60,7 @@ export function SectionDescription({
     children: React.ReactNode;
 }) {
     return (
-        <p className="text-black text-lg lg:text-base font-normal font-serif leading-none lg:leading-none whitespace-pre-line">
+        <p className="text-black text-lg xl:text-base font-normal font-serif leading-none xl:leading-none whitespace-pre-line">
             {children}
         </p>
     );

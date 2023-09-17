@@ -64,9 +64,10 @@ function Subsection2() {
 
     return (
         <div className="flex flex-col gap-2.5 w-full">
-            <div className="px-6 lg:px-9 py-2 lg:py-1 rounded-[5px] border border-dashed border-black justify-center items-center overflow-x-scroll gap-6 lg:gap-9 inline-flex hide_scrollbar">
+            <div className="px-6 xl:px-9 py-2 xl:py-1 rounded-[5px] border border-dashed border-black justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar">
                 {numbers.map((number) => (
                     <button
+                        key={number}
                         onClick={() => {
                             const exponentInput = document.getElementById(
                                 "exponent"
@@ -99,11 +100,11 @@ function Subsection2() {
 function Subsection3() {
     return (
         <div className="flex flex-col gap-2.5 w-full">
-            <div className="flex flex-row items-center justify-center lg:justify-between flex-wrap bg-black rounded-md px-4 py-2">
-                <p className="text-white text-lg lg:text-base font-medium font-title">
+            <div className="flex flex-row items-center justify-center xl:justify-between flex-wrap bg-black rounded-md px-4 py-2">
+                <p className="text-white text-lg xl:text-base font-medium font-title">
                     Utilizamos como dados:
                 </p>
-                <div className="flex flex-row items-center justify-center flex-wrap gap-5 text-white text-lg lg:text-base font-black font-title text-center">
+                <div className="flex flex-row items-center justify-center flex-wrap gap-5 text-white text-lg xl:text-base font-black font-title text-center">
                     <p>2 e 63 como números primos</p>
                     <p>54 como expoente</p>
                 </div>
@@ -113,8 +114,8 @@ function Subsection3() {
                 a contém.
             </SectionDescription>
             <div className="flex flex-row items-center justify-between gap-2.5">
-                <div className="px-6 lg:px-9 py-2 lg:py-1 rounded-[5px] border border-dashed border-black justify-center items-center overflow-x-scroll gap-6 lg:gap-9 inline-flex hide_scrollbar w-full ">
-                    <p className="text-center text-black text-lg lg:text-base font-black font-title underline cursor-pointer">
+                <div className="px-6 xl:px-9 py-2 xl:py-1 rounded-[5px] border border-dashed border-black justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar w-full ">
+                    <p className="text-center text-black text-lg xl:text-base font-black font-title underline cursor-pointer">
                         92367834 29837423
                     </p>
                 </div>

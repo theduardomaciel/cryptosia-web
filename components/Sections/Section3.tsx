@@ -8,7 +8,7 @@ import { DownloadIcon } from "@radix-ui/react-icons";
 export default function Section3() {
     return (
         <SectionWrapper>
-            <div className="flex w-full flex-col lg:flex-row items-start justify-between gap-2.5">
+            <div className="flex w-full flex-col xl:flex-row items-start justify-between gap-2.5">
                 <InputRoot className="w-full">
                     <InputLabel>1º número primo</InputLabel>
                     <Input placeholder="número 1" />
