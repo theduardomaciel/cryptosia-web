@@ -18,9 +18,9 @@ export default function Section1() {
                     buttonDescription: "Próximo",
                 },
                 {
-                    title: "E agora de um expoente",
+                    title: "E agora precisamos de um expoente",
                     description: [
-                        "Agora, precisamos de um número que será utilizado como expoente para criptografia.",
+                        "Este expoente será utilizado como expoente para criptografia.",
                         "Pra facilitar sua vida, geramos alguns expoentes válidos:",
                     ],
                     children: <Subsection2 />,
@@ -29,7 +29,7 @@ export default function Section1() {
                 {
                     title: "Vòilá!",
                     description:
-                        "Está tudo prontinho!\nSua chave pública já foi gerada e pode ser utilizada por qualquer outra pessoa que queira encriptar mensagens.",
+                        "Está tudo prontinho! Sua chave pública já foi gerada e pode ser utilizada.",
                     children: <Subsection3 />,
                     buttonDescription: "Voltar ao início",
                 },
@@ -40,7 +40,7 @@ export default function Section1() {
 
 function Subsection1() {
     return (
-        <div className="flex flex-col gap-2.5 w-full">
+        <div className="flex flex-col gap-2.5 w-full h-full items-center justify-center">
             <Input
                 type="text"
                 pattern="\d*"
@@ -63,8 +63,8 @@ function Subsection2() {
     const numbers = [25, 12, 28, 42, 14, 46];
 
     return (
-        <div className="flex flex-col gap-2.5 w-full">
-            <div className="px-6 xl:px-9 py-2 xl:py-1 rounded-[5px] border border-dashed border-black justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar">
+        <div className="flex flex-col gap-2.5 w-full h-full items-center justify-center">
+            <div className="px-6 xl:px-9 py-2 xl:py-1 rounded-[5px] border border-dashed border-black justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar w-full">
                 {numbers.map((number) => (
                     <button
                         key={number}
@@ -82,8 +82,7 @@ function Subsection2() {
                 ))}
             </div>
             <SectionDescription>
-                Você pode escolher um dos que estão acima, ou inserir o seu
-                próprio.
+                Você pode escolher um acima, ou inserir o seu próprio.
             </SectionDescription>
             <Input
                 id="exponent"
@@ -99,22 +98,21 @@ function Subsection2() {
 
 function Subsection3() {
     return (
-        <div className="flex flex-col gap-2.5 w-full">
-            <div className="flex flex-row items-center justify-center xl:justify-between flex-wrap bg-black rounded-md px-4 py-2">
+        <div className="flex flex-col gap-2.5 w-full h-full items-center justify-center">
+            <div className="flex flex-row items-center justify-center xl:justify-between flex-wrap bg-black rounded-md px-4 py-2 w-full">
                 <p className="text-white text-lg xl:text-base font-medium font-title">
                     Utilizamos como dados:
                 </p>
-                <div className="flex flex-row items-center justify-center flex-wrap gap-5 text-white text-lg xl:text-base font-black font-title text-center">
+                <div className="flex flex-row items-center justify-center flex-wrap gap-1 lg:gap-5 text-white text-base font-black font-title text-center">
                     <p>2 e 63 como números primos</p>
                     <p>54 como expoente</p>
                 </div>
             </div>
             <SectionDescription>
-                Você pode copiar a chave numérica ou baixar um arquivo .txt que
-                a contém.
+                Você pode copiar a chave ou baixar um arquivo .txt
             </SectionDescription>
-            <div className="flex flex-row items-center justify-between gap-2.5">
-                <div className="px-6 xl:px-9 py-2 xl:py-1 rounded-[5px] border border-dashed border-black justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar w-full ">
+            <div className="flex flex-row items-center justify-between gap-2.5 w-full">
+                <div className="px-6 xl:px-9 py-1 rounded-[5px] border border-dashed border-black justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar w-full">
                     <p className="text-center text-black text-lg xl:text-base font-black font-title underline cursor-pointer">
                         92367834 29837423
                     </p>

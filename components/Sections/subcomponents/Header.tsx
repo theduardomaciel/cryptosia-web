@@ -19,11 +19,11 @@ export default function SectionHeader({ index, amount, subsection }: Props) {
                 }
             )}
         >
-            <h3 className="text-black text-2xl font-extrabold font-title leading-tight pointer-events-none inline-flex items-center justify-start flex-row gap-3">
+            <h3 className="text-black text-2xl font-extrabold font-title leading-none pointer-events-none inline-flex items-center justify-start flex-row gap-3">
                 {index != amount - 1 && `${index + 1}.`} {subsection.title}
             </h3>
             <div className="border-b w-full border-b-black rounded" />
-            <div className="flex flex-col items-start justify-start gap-2.5">
+            <div className="flex flex-col items-start justify-start gap-2.5 w-full">
                 {subsection.description instanceof Array ? (
                     subsection.description.map(
                         (description: string, index: number) => (
@@ -60,7 +60,7 @@ export function SectionDescription({
     children: React.ReactNode;
 }) {
     return (
-        <p className="text-black text-lg xl:text-base font-normal font-serif leading-none xl:leading-none whitespace-pre-line">
+        <p className="text-black text-lg xl:text-base font-normal font-serif leading-none xl:leading-none whitespace-pre-line w-full">
             {children}
         </p>
     );
