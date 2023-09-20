@@ -62,12 +62,13 @@ export default function Section1() {
     const WASM = useRef<WasmFunctions | null>(null);
 
     useEffect(() => {
+        console.log("Verificando WASM...");
         if (
-            typeof (window as any).CRYPTO === "function" &&
+            typeof (window as any).CRYPTOSIA === "function" &&
             WASM.current === null
         ) {
             console.log("Carregando WASM...");
-            (window as any).CRYPTO().then((wasm: WasmFunctions) => {
+            (window as any).CRYPTOSIA().then((wasm: WasmFunctions) => {
                 console.log("WASM carregou!");
                 WASM.current = wasm;
                 // ...
@@ -429,7 +430,7 @@ function Subsection3({
                 <p className="text-white text-lg xl:text-base font-medium font-title leading-none">
                     Utilizamos como dados:
                 </p>
-                <div className="flex flex-row items-center justify-center flex-wrap gap-1 lg:gap-5 text-white text-base font-black font-title text-center leading-none">
+                <div className="flex flex-row items-center justify-center flex-wrap max-sm:gap-1 gap-5 text-white text-base font-black font-title text-center leading-none">
                     <p>
                         {data?.p} e {data?.q} como números primos
                     </p>

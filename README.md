@@ -40,13 +40,13 @@ Utilize o cryptosia para gerar chaves pública e privada em perfeita sintonia, g
 -   Com o terminal no diretório correto, compile o arquivo `cryptosia.c` com o seguinte comando:
 
 ```
-emcc -O3 "[diretório do arquivo C]\cryptosia.c" -o "[diretório de saída]\cryptosia.js" -lm --profiling-funcs -s MODULARIZE -s WASM=1 -s EXPORT_NAME="CRYPTO" -s ENVIRONMENT="web" -s EXPORTED_FUNCTIONS=[nome das funções antecipados de "_", sem espaços e separados por "," como em "_int_sqrt"] EXPORTED_RUNTIME_METHODS=ccall,cwrap
+emcc -O3 "[diretório do arquivo C]\cryptosia.c" -o "[diretório de saída]\cryptosia.js" -lm --profiling-funcs -s MODULARIZE -s WASM=1 -s EXPORT_NAME="CRYPTOSIA" -s ENVIRONMENT="web" -s EXPORTED_FUNCTIONS=[nome das funções antecipados de "_", sem espaços e separados por "," como em "_int_sqrt"] EXPORTED_RUNTIME_METHODS=ccall,cwrap
 ```
 
 > Exemplo:
 
 ```
-emcc -Oz "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.c" -o "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.js" -lm --profiling-funcs -s MODULARIZE -s WASM=1 -s EXPORT_NAME="CRYPTO" -s ENVIRONMENT="web" -s EXPORTED_FUNCTIONS=_n_factor,_publicKey_totient,_publicKey_e,_privateKey_d,_mdc -s EXPORTED_RUNTIME_METHODS=ccall,cwrap
+emcc -O3 "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.c" -o "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.js" -lm --profiling-funcs -s MODULARIZE -s WASM=1 -s EXPORT_NAME="CRYPTOSIA" -s ENVIRONMENT="web" -s EXPORTED_FUNCTIONS=_n_factor,_publicKey_totient,_publicKey_e,_privateKey_d,_mdc -s EXPORTED_RUNTIME_METHODS=ccall,cwrap
 ```
 
 > [!NOTE]  
