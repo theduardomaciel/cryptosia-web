@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -13,13 +13,23 @@ import { SectionDescription } from "./subcomponents/Header";
 
 import { CopyIcon, DownloadIcon } from "@radix-ui/react-icons";
 
-type Window = typeof window & {
+interface WASM {
     _n_factor: (p: number, q: number) => number;
     _publicKey_totient: (p: number, q: number) => number;
     _publicKey_e: (totient: number, initialExponent: number) => number;
     _privateKey_d: (totient: number, exponent: number) => number;
     _mdc: (a: number, b: number) => number;
-};
+}
+
+interface WasmMethods {
+    cwrap: (name: string, returnType: string, argTypes: string[]) => any;
+    ccall: (
+        name: string,
+        returnType: string,
+        argTypes: string[],
+        args: any[]
+    ) => any;
+}
 
 interface FormValues {
     p: number;
@@ -50,12 +60,27 @@ export default function Section1() {
 
     const router = useRouter();
 
+    const module = useRef<WASM | null>(null);
+
+    useEffect(() => {
+        if (
+            typeof (window as any).SZU === "function" &&
+            module.current === null
+        ) {
+            console.log("Carregando WASM...");
+            (window as any).SZU().then((wasm: WASM) => {
+                console.log("WASM carregou!");
+                module.current = wasm;
+                // ...
+            });
+        }
+    }, []);
+
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        if (!module.current) return;
         if (errors.p || errors.q || errors.general) return;
-
-        const _window = window as Window;
 
         const formData = new FormData(event.currentTarget);
         const unformattedData = Object.fromEntries(formData.entries());
@@ -67,10 +92,10 @@ export default function Section1() {
             ])
         ) as unknown as FormValues;
 
-        const n = _window._n_factor(values.p, values.q);
-        const totient = _window._publicKey_totient(values.p, values.q);
+        const n = module.current?._n_factor(values.p, values.q);
+        const totient = module.current?._publicKey_totient(values.p, values.q);
 
-        if (_window._mdc(values.exponent, totient) !== 1) {
+        if (module.current?._mdc(values.exponent, totient) !== 1) {
             setErrors((errors) => ({
                 ...errors,
                 exponent:
@@ -81,7 +106,10 @@ export default function Section1() {
 
         //console.log(values);
 
-        const privateKey = _window._privateKey_d(totient, values.exponent);
+        const privateKey = module.current?._privateKey_d(
+            totient,
+            values.exponent
+        );
 
         const publicKey = `${n} ${values.exponent}`;
         const privateKeyString = `${n} ${privateKey}`;
@@ -115,6 +143,8 @@ export default function Section1() {
                         type: "button",
                         id: "generate-exponent",
                         onVerify: () => {
+                            if (!module.current) return false;
+
                             const p = parseInt(
                                 document
                                     .getElementById("public-key-section")
@@ -153,11 +183,10 @@ export default function Section1() {
 
                             if (!p || !q) return false;
 
-                            const _window = window as Window;
-
-                            //const n = _window._n_factor(p, q);
-
-                            const totient = _window._publicKey_totient(p!, q!);
+                            const totient = module.current?._publicKey_totient(
+                                p!,
+                                q!
+                            );
 
                             console.log("Totiente: " + totient);
 
@@ -206,7 +235,7 @@ export default function Section1() {
                             /* const exponents = Array.from(
                                 { length: EXPONENTS_AMOUNT },
                                 (_, i) =>
-                                    _window._publicKey_e(
+                                    module.current?._publicKey_e(
                                         totient,
                                         i + 1
                                     ) as number
@@ -214,7 +243,7 @@ export default function Section1() {
 
                             let exponents: number[] = [];
                             for (let i = 0; i < EXPONENTS_AMOUNT; i++) {
-                                const exponent = _window._publicKey_e(
+                                const exponent = module.current?._publicKey_e(
                                     totient,
                                     exponents[i - 1] || -1
                                 ) as number;
@@ -413,7 +442,7 @@ function Subsection3({
             </SectionDescription>
             <div className="flex flex-row items-center justify-between gap-2.5 w-full">
                 <button
-                    className="px-6 xl:px-9 py-1 rounded-[5px] justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar w-full relative outline-dashed outline-black outline-1 hover:outline-offset-1 hover:outline-2"
+                    className="px-6 xl:px-9 py-1 rounded-[5px] justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar w-full relative outline-dashed outline-black outline-1 hover:outline-offset-1 hover:outline-2 group/public_key"
                     type="button"
                     onClick={() => {
                         const publicKeyInput = document.getElementById(
@@ -424,24 +453,22 @@ function Subsection3({
 
                         const tempText = publicKeyInput.value;
                         publicKeyInput.value = "Chave pública copiada!";
-                        publicKeyInput.style.textDecoration = "none";
                         publicKeyInput.style.cursor = "default";
                         setTimeout(() => {
                             publicKeyInput.value = tempText;
-                            publicKeyInput.style.textDecoration = "underline";
                             publicKeyInput.style.cursor = "pointer";
                         }, 1000);
                     }}
                 >
                     <input
                         id="public-key"
-                        className="text-center text-black text-lg xl:text-base font-black font-title underline cursor-pointer bg-transparent ring-0 outline-none border-none w-full"
+                        className="text-center text-black text-lg xl:text-base font-black font-title hover:underline cursor-pointer bg-transparent ring-0 outline-none border-none w-full"
                         defaultValue={data?.publicKey}
                         tabIndex={-1}
                         readOnly
                     />
                     <CopyIcon
-                        className="absolute right-4 top-1/2 -translate-y-1/2"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 group-hover/public_key:scale-110 transition-transform duration-100"
                         color="black"
                         width={16}
                         height={16}
@@ -452,6 +479,7 @@ function Subsection3({
                         color={"white"}
                         width={18}
                         height={18}
+                        type="button"
                         onClick={() => {
                             const file = new Blob([data?.publicKey!], {
                                 type: "text/plain",
