@@ -21,11 +21,7 @@ export default function Section2() {
                     >
                         Chave pública (e)
                     </InputHeader>
-                    <Input
-                        placeholder="expoente e"
-                        pattern="\d*"
-                        maxLength={10}
-                    />
+                    <Input placeholder="e" pattern="\d*" maxLength={10} />
                 </InputRoot>
                 <InputRoot className="w-full">
                     <InputLabel>Produto "n"</InputLabel>

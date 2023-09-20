@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
 
 import SectionHeader from "./Header";
-import SectionButton from "./SubsectionButton";
+import SubsectionButton from "./SubsectionButton";
 
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 
@@ -26,9 +26,8 @@ export type Subsection = {
     title: string;
     description: string | string[];
     children?: ReactNode;
-    button?: {
-        description: string;
-        onClick?: () => void;
+    buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+        onVerify?: () => boolean;
     };
 };
 
@@ -48,7 +47,11 @@ export function MultisectionsSectionWrapper({
     const currentSubsectionParam = useSearchParams()?.get("subsection") || "0";
     const currentSubsection = parseInt(currentSubsectionParam);
 
+    const lastSubsection = subsections.length - 1;
     const percentageWidth = (currentSubsection * 100) / subsections.length;
+
+    const buttonProps = subsections[currentSubsection]?.buttonProps || {};
+    const { children: buttonChildren, ...buttonPropsRest } = buttonProps;
 
     return (
         <form
@@ -83,29 +86,25 @@ export function MultisectionsSectionWrapper({
                     </div>
                 ))}
             </div>
-            <SectionButton
+            <SubsectionButton
                 query={{
                     key: "subsection",
                     value: currentSubsection
-                        ? currentSubsection < subsections.length - 1
+                        ? currentSubsection < lastSubsection
                             ? currentSubsection + 1
                             : 0
                         : 1,
                 }}
                 className={cn("bg-black text-white", {
                     "bg-transparent text-black hover:outline-black hover:outline-[1px]":
-                        currentSubsection == subsections.length - 1,
+                        currentSubsection == lastSubsection,
                 })}
-                type={
-                    currentSubsection == subsections.length - 2
-                        ? "submit"
-                        : "button"
-                }
+                {...buttonPropsRest}
             >
-                {currentSubsection == subsections.length - 1 && (
+                {currentSubsection == lastSubsection && (
                     <ArrowLeftIcon
                         color={
-                            currentSubsection == subsections.length - 1
+                            currentSubsection == lastSubsection
                                 ? "black"
                                 : "white"
                         }
@@ -113,11 +112,8 @@ export function MultisectionsSectionWrapper({
                         height={12}
                     />
                 )}
-                {
-                    subsections[currentSubsection ? currentSubsection : 0]
-                        ?.button?.description
-                }
-            </SectionButton>
+                {buttonChildren}
+            </SubsectionButton>
         </form>
     );
 }

@@ -1,23 +1,34 @@
 "use client";
+
 import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import clsx from "clsx";
 
 import { Button } from "../../ui/Button";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
-import clsx from "clsx";
 
-interface Props extends React.ComponentPropsWithoutRef<"button"> {
+import type { Subsection } from "./Wrapper";
+
+type ButtonProps = Subsection["buttonProps"];
+
+type Props = ButtonProps & {
     query?: {
         key: string;
         value: number;
     };
-    children?: React.ReactNode;
-}
+};
 
-export default function SubsectionButton({ query, children, ...rest }: Props) {
+export default function SubsectionButton({
+    query,
+    children,
+    onVerify,
+    ...rest
+}: Props) {
+    const searchParams = useSearchParams()!;
+    const currentSubsection = searchParams.get("subsection");
+
     const router = useRouter();
     const pathname = usePathname();
-    const searchParams = useSearchParams()!;
 
     // Get a new searchParams string by merging the current
     // searchParams with a provided key/value pair
@@ -36,7 +47,14 @@ export default function SubsectionButton({ query, children, ...rest }: Props) {
         [searchParams]
     );
 
-    const currentSubsection = searchParams.get("subsection");
+    const goToSection = useCallback(
+        (key: string, value: string) => {
+            router.push(pathname + "?" + createQueryString(key, value), {
+                scroll: false,
+            });
+        },
+        [createQueryString, pathname, router]
+    );
 
     return (
         <div className="flex flex-row items-center justify-between w-full transition-all">
@@ -58,17 +76,12 @@ export default function SubsectionButton({ query, children, ...rest }: Props) {
                     disabled={query?.value == 0}
                     onClick={() =>
                         query
-                            ? router.push(
-                                  pathname +
-                                      "?" +
-                                      createQueryString(
-                                          query.key,
-                                          (query.value - 2 > 0
-                                              ? query.value - 2
-                                              : 0
-                                          ).toString()
-                                      ),
-                                  { scroll: false }
+                            ? goToSection(
+                                  query.key,
+                                  (query.value - 2 > 0
+                                      ? query.value - 2
+                                      : 0
+                                  ).toString()
                               )
                             : {}
                     }
@@ -77,19 +90,12 @@ export default function SubsectionButton({ query, children, ...rest }: Props) {
                 </Button>
             </div>
             <Button
-                onClick={() =>
-                    query
-                        ? router.replace(
-                              pathname +
-                                  "?" +
-                                  createQueryString(
-                                      query.key,
-                                      query.value.toString()
-                                  ),
-                              { scroll: false }
-                          )
-                        : {}
-                }
+                onClick={() => {
+                    const isVerified = !onVerify || onVerify();
+                    if (isVerified) {
+                        goToSection(query!.key, query!.value.toString());
+                    }
+                }}
                 {...rest}
             >
                 {children}
