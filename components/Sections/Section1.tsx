@@ -13,7 +13,7 @@ import { SectionDescription } from "./subcomponents/Header";
 
 import { CopyIcon, DownloadIcon } from "@radix-ui/react-icons";
 
-interface WASM {
+interface WasmFunctions {
     _n_factor: (p: number, q: number) => number;
     _publicKey_totient: (p: number, q: number) => number;
     _publicKey_e: (totient: number, initialExponent: number) => number;
@@ -59,18 +59,17 @@ export default function Section1() {
     );
 
     const router = useRouter();
-
-    const module = useRef<WASM | null>(null);
+    const WASM = useRef<WasmFunctions | null>(null);
 
     useEffect(() => {
         if (
-            typeof (window as any).SZU === "function" &&
-            module.current === null
+            typeof (window as any).CRYPTO === "function" &&
+            WASM.current === null
         ) {
             console.log("Carregando WASM...");
-            (window as any).SZU().then((wasm: WASM) => {
+            (window as any).CRYPTO().then((wasm: WasmFunctions) => {
                 console.log("WASM carregou!");
-                module.current = wasm;
+                WASM.current = wasm;
                 // ...
             });
         }
@@ -79,7 +78,7 @@ export default function Section1() {
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (!module.current) return;
+        if (!WASM.current) return;
         if (errors.p || errors.q || errors.general) return;
 
         const formData = new FormData(event.currentTarget);
@@ -92,10 +91,10 @@ export default function Section1() {
             ])
         ) as unknown as FormValues;
 
-        const n = module.current?._n_factor(values.p, values.q);
-        const totient = module.current?._publicKey_totient(values.p, values.q);
+        const n = WASM.current?._n_factor(values.p, values.q);
+        const totient = WASM.current?._publicKey_totient(values.p, values.q);
 
-        if (module.current?._mdc(values.exponent, totient) !== 1) {
+        if (WASM.current?._mdc(values.exponent, totient) !== 1) {
             setErrors((errors) => ({
                 ...errors,
                 exponent:
@@ -106,7 +105,7 @@ export default function Section1() {
 
         //console.log(values);
 
-        const privateKey = module.current?._privateKey_d(
+        const privateKey = WASM.current?._privateKey_d(
             totient,
             values.exponent
         );
@@ -143,7 +142,7 @@ export default function Section1() {
                         type: "button",
                         id: "generate-exponent",
                         onVerify: () => {
-                            if (!module.current) return false;
+                            if (!WASM.current) return false;
 
                             const p = parseInt(
                                 document
@@ -183,7 +182,7 @@ export default function Section1() {
 
                             if (!p || !q) return false;
 
-                            const totient = module.current?._publicKey_totient(
+                            const totient = WASM.current?._publicKey_totient(
                                 p!,
                                 q!
                             );
@@ -235,7 +234,7 @@ export default function Section1() {
                             /* const exponents = Array.from(
                                 { length: EXPONENTS_AMOUNT },
                                 (_, i) =>
-                                    module.current?._publicKey_e(
+                                    WASM.current?._publicKey_e(
                                         totient,
                                         i + 1
                                     ) as number
@@ -243,7 +242,7 @@ export default function Section1() {
 
                             let exponents: number[] = [];
                             for (let i = 0; i < EXPONENTS_AMOUNT; i++) {
-                                const exponent = module.current?._publicKey_e(
+                                const exponent = WASM.current?._publicKey_e(
                                     totient,
                                     exponents[i - 1] || -1
                                 ) as number;

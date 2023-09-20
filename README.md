@@ -15,7 +15,7 @@ Utilize o cryptosia para gerar chaves pública e privada em perfeita sintonia, g
 
 ## ✨ Tecnologias
 
-Frontend:
+#### Frontend:
 
 -   [ ] HTML
 -   [ ] CSS
@@ -24,7 +24,7 @@ Frontend:
 -   [ ] TailwindCSS
 -   [ ] Radix & Radix Icons
 
-Backend
+#### Backend
 
 -   [ ] Emscripten
 -   [ ] WebAssembly
@@ -32,20 +32,27 @@ Backend
 
 ## 💽 Como compilar o backend em C
 
--   Siga as instruções do **emscripten** em [emscripten.org/docs/getting_started/downloads.html](https://emscripten.org/docs/getting_started/downloads.html)
--   Abra o terminal `Emscripten Windows Command Prompt (emcmdprompt.bat)` disponível na pasta do **emscripten** e navegue até o diretório `<diretório raíz do emsdk>/upstream/emscripten/`
--   Compile o arquivo `cryptosia.c` com o comando `emcc -O1 "[diretório do arquivo C]\cryptosia.c" -o "[diretório de saída]\cryptosia.js" -lm -sEXPORTED_FUNCTIONS=[nome das funções antecipado de "_" e separados por "," como em "_int_sqrt"] EXPORTED_RUNTIME_METHODS=ccall,cwrap -lm --profiling-funcs -s MODULARIZE WASM=1 -s EXPORT_NAME="SZU" -s EXPORT_NAME="SZU" -s ENVIRONMENT="web"s`
+> [!IMPORTANT]  
+> O passo a passo disponível a seguir refere-se à compilação em um dispositivo Windows. Para especificações em outros sistemas operacionais, visite a página oficial do [emscripten](https://emscripten.org/docs/getting_started/downloads.html).
 
-_O argumento `-O1` é utilizado para otimizar levemente o código!_
+-   Siga as instruções de instalação do **emscripten** em [emscripten.org/docs/getting_started/downloads.html](https://emscripten.org/docs/getting_started/downloads.html)
+-   Abra o terminal `Emscripten Windows Command Prompt (emcmdprompt.bat)` disponível no diretório `\emscripten\emsdk` e navegue até `\upstream\emscripten/`
+-   Com o terminal no diretório correto, compile o arquivo `cryptosia.c` com o seguinte comando:
+
+```
+emcc -O3 "[diretório do arquivo C]\cryptosia.c" -o "[diretório de saída]\cryptosia.js" -lm --profiling-funcs -s MODULARIZE -s WASM=1 -s EXPORT_NAME="CRYPTO" -s ENVIRONMENT="web" -s EXPORTED_FUNCTIONS=[nome das funções antecipados de "_", sem espaços e separados por "," como em "_int_sqrt"] EXPORTED_RUNTIME_METHODS=ccall,cwrap
+```
 
 > Exemplo:
 
 ```
-emcc -Oz "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.c" -o "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.js" -lm --profiling-funcs -s MODULARIZE -s WASM=1 -s EXPORT_NAME="SZU" -s EXPORT_NAME="SZU" -s ENVIRONMENT="web" -s EXPORTED_FUNCTIONS=_n_factor,_publicKey_totient,_publicKey_e,_privateKey_d,_mdc -s EXPORTED_RUNTIME_METHODS=ccall,cwrap
+emcc -Oz "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.c" -o "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.js" -lm --profiling-funcs -s MODULARIZE -s WASM=1 -s EXPORT_NAME="CRYPTO" -s ENVIRONMENT="web" -s EXPORTED_FUNCTIONS=_n_factor,_publicKey_totient,_publicKey_e,_privateKey_d,_mdc -s EXPORTED_RUNTIME_METHODS=ccall,cwrap
 ```
 
--   Copie o arquivo `cryptosia.js` para a pasta `public` do projeto
--   Copie o arquivo `cryptosia.wasm` para a pasta `public` do projeto
+> [!NOTE]  
+> _O argumento `-O3` é utilizado para otimizar o código. Portanto, ao utilizá-lo, prepare-se para tempos de compilação maiores. <br /> Para tempos mais rápidos, utilize níveis de otimização menor como -O1, O2 ou Oz!_
+
+-   Copie os arquivos `cryptosia.js` e `cryptosia.wasm` gerados para a pasta `public` do projeto
 
 ## 🚀 Como executar
 
