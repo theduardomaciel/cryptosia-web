@@ -26,7 +26,7 @@ export default function Section3() {
                     <Input placeholder="d" pattern="\d*" maxLength={10} />
                 </InputRoot>
                 <InputRoot className="w-full">
-                    <InputLabel>Produto "n"</InputLabel>
+                    <InputLabel>Produto &quot;n&quot;</InputLabel>
                     <Input
                         placeholder="produto n"
                         pattern="\d*"
