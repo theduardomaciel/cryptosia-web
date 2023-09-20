@@ -39,13 +39,12 @@ export default function RootLayout({
 }) {
     return (
         <>
-            <head>
+            {/* <head>
                 <Script
                     src="/wasm/cryptosia.js"
                     strategy="beforeInteractive"
-                    defer
                 />
-            </head>
+            </head> */}
             <html suppressHydrationWarning lang="pt-br">
                 <body
                     className={`${inconsolata.variable} ${crete_round.variable} ${jakarta_sans.variable}`}

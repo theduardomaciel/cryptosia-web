@@ -272,6 +272,7 @@ export default function Section1() {
                     ),
                     buttonProps: {
                         children: <>Gerar chave pública</>,
+                        onVerify: () => false,
                     },
                 },
                 {
@@ -438,7 +439,7 @@ function Subsection3({
                 </div>
             </div>
             <SectionDescription>
-                Você pode copiar a chave ou baixar um arquivo .txt
+                Você pode copiar a chave abaixo ou baixar um arquivo .txt
             </SectionDescription>
             <div className="flex flex-row items-center justify-between gap-2.5 w-full">
                 <button
