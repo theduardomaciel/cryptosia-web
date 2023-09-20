@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import Script from "next/script";
 import Link from "next/link";
 
 // Components
@@ -26,7 +25,6 @@ export default function Home() {
     return (
         <Fragment>
             <main className="flex w-screen flex-col items-center justify-start px-[var(--wrapper)]">
-                <Script src="/wasm/cryptosia.js" strategy="beforeInteractive" />
                 <Header />
                 <div className="flex w-full flex-col items-center justify-start mt-28 gap-12">
                     <Link

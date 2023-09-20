@@ -39,16 +39,21 @@ export default function RootLayout({
 }) {
     return (
         <>
-            {/* <head>
-                <Script src="/wasm/cryptosia.js" strategy="beforeInteractive" />
-            </head> */}
             <html suppressHydrationWarning lang="pt-br">
                 <body
                     className={`${inconsolata.variable} ${crete_round.variable} ${jakarta_sans.variable}`}
                 >
                     <Providers>{children}</Providers>
+                    <Script
+                        src="/wasm/cryptosia.js"
+                        strategy="beforeInteractive"
+                    />
                 </body>
             </html>
         </>
     );
 }
+
+/* <head>
+    <Script src="/wasm/cryptosia.js" strategy="beforeInteractive" />
+</head> */

@@ -7,7 +7,7 @@ const nextConfig = {
                 ...config.experiments,
             },
             output: {
-                webassemblyModuleFilename: "static/wasm/[modulehash].wasm",
+                webAssemblyModuleFilename: "static/wasm/cryptosia.wasm",
                 ...config.output,
             },
             ...config,

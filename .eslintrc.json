@@ -1,6 +1,7 @@
 {
     "extends": "next/core-web-vitals",
     "rules": {
-        "@next/next/no-sync-scripts": "off"
+        "@next/next/no-sync-scripts": "off",
+        "jsx-a11y/role-supports-aria-props": "off"
     }
 }
