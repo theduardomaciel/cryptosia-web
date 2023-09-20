@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
 
 import SectionHeader from "./Header";
@@ -26,15 +26,24 @@ export type Subsection = {
     title: string;
     description: string | string[];
     children?: ReactNode;
-    buttonDescription?: string;
+    button?: {
+        description: string;
+        onClick?: () => void;
+    };
 };
 
-interface MultisectionsProps {
+type ReactFormProps = React.DetailedHTMLProps<
+    React.FormHTMLAttributes<HTMLFormElement>,
+    HTMLFormElement
+>;
+
+interface MultisectionsProps extends ReactFormProps {
     subsections: Subsection[];
 }
 
 export function MultisectionsSectionWrapper({
     subsections,
+    ...rest
 }: MultisectionsProps) {
     const currentSubsectionParam = useSearchParams()?.get("subsection") || "0";
     const currentSubsection = parseInt(currentSubsectionParam);
@@ -42,7 +51,10 @@ export function MultisectionsSectionWrapper({
     const percentageWidth = (currentSubsection * 100) / subsections.length;
 
     return (
-        <div className="flex h-full w-full flex-col items-start justify-start py-6 px-5 gap-4 xl:justify-center xl:py-16 xl:px-10 overflow-x-hidden overflow-y-hidden transition-transform">
+        <form
+            className="flex h-full w-full flex-col items-start justify-start py-6 px-5 gap-4 xl:justify-center xl:py-16 xl:px-10 overflow-x-hidden overflow-y-hidden transition-transform"
+            {...rest}
+        >
             <div
                 /* O gap aqui deve corresponder ao dobro do padding horizontal (px) da div parente (no mobile) */
                 className="flex flex-row items-start justify-start"
@@ -84,6 +96,11 @@ export function MultisectionsSectionWrapper({
                     "bg-transparent text-black hover:outline-black hover:outline-[1px]":
                         currentSubsection == subsections.length - 1,
                 })}
+                type={
+                    currentSubsection == subsections.length - 2
+                        ? "submit"
+                        : "button"
+                }
             >
                 {currentSubsection == subsections.length - 1 && (
                     <ArrowLeftIcon
@@ -98,10 +115,10 @@ export function MultisectionsSectionWrapper({
                 )}
                 {
                     subsections[currentSubsection ? currentSubsection : 0]
-                        ?.buttonDescription
+                        ?.button?.description
                 }
             </SectionButton>
-        </div>
+        </form>
     );
 }
 

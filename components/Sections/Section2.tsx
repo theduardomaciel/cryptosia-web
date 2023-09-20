@@ -1,7 +1,7 @@
 "use client";
 
 import SectionWrapper from "./subcomponents/Wrapper";
-import { Input, InputHeader, InputRoot } from "../ui/Input";
+import { Input, InputHeader, InputLabel, InputRoot } from "../ui/Input";
 import { Button } from "../ui/Button";
 
 import { PublicKeyIcon } from "@/public/icons/Sections";
@@ -9,14 +9,33 @@ import { PublicKeyIcon } from "@/public/icons/Sections";
 export default function Section2() {
     return (
         <SectionWrapper>
-            <InputRoot className="w-full">
-                <InputHeader
-                    icon={<PublicKeyIcon className="w-5 h-5" color={"black"} />}
-                >
-                    Chave pública
-                </InputHeader>
-                <Input placeholder="[insira aqui a chave pública]" />
-            </InputRoot>
+            <div className="flex flex-col items-center justify-center lg:flex-row lg:justify-between w-full gap-2.5">
+                <InputRoot className="w-full">
+                    <InputHeader
+                        icon={
+                            <PublicKeyIcon
+                                className="w-5 h-5"
+                                color={"black"}
+                            />
+                        }
+                    >
+                        Chave pública (e)
+                    </InputHeader>
+                    <Input
+                        placeholder="expoente e"
+                        pattern="\d*"
+                        maxLength={10}
+                    />
+                </InputRoot>
+                <InputRoot className="w-full">
+                    <InputLabel>Produto "n"</InputLabel>
+                    <Input
+                        placeholder="produto n "
+                        pattern="\d*"
+                        maxLength={10}
+                    />
+                </InputRoot>
+            </div>
             <textarea
                 name="message"
                 id="message"

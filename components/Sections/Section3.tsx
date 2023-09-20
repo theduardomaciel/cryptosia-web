@@ -1,25 +1,37 @@
 "use client";
 
-import SectionWrapper from "./subcomponents/Wrapper";
-import { Input, InputLabel, InputRoot } from "../ui/Input";
-import { Button } from "../ui/Button";
 import { DownloadIcon } from "@radix-ui/react-icons";
+
+import SectionWrapper from "./subcomponents/Wrapper";
+import { Input, InputHeader, InputLabel, InputRoot } from "../ui/Input";
+import { Button } from "../ui/Button";
+
+import { PublicKeyIcon } from "@/public/icons/Sections";
 
 export default function Section3() {
     return (
         <SectionWrapper>
             <div className="flex w-full flex-col xl:flex-row items-start justify-between gap-2.5">
                 <InputRoot className="w-full">
-                    <InputLabel>1º número primo</InputLabel>
-                    <Input placeholder="número 1" />
+                    <InputHeader
+                        icon={
+                            <PublicKeyIcon
+                                className="w-5 h-5"
+                                color={"black"}
+                            />
+                        }
+                    >
+                        Chave privada (d)
+                    </InputHeader>
+                    <Input placeholder="d" pattern="\d*" maxLength={10} />
                 </InputRoot>
                 <InputRoot className="w-full">
-                    <InputLabel>2º número primo</InputLabel>
-                    <Input placeholder="número 2" />
-                </InputRoot>
-                <InputRoot className="w-full">
-                    <InputLabel>Expoente</InputLabel>
-                    <Input placeholder="expoente" />
+                    <InputLabel>Produto "n"</InputLabel>
+                    <Input
+                        placeholder="produto n"
+                        pattern="\d*"
+                        maxLength={10}
+                    />
                 </InputRoot>
             </div>
             <div className="flex w-full h-full flex-1 relative">

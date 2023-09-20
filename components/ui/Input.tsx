@@ -11,7 +11,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             <input
                 type={type}
                 className={cn(
-                    "flex h-10 w-full rounded-md border border-input bg-black px-3 py-2 text-sm ring-offset-black file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                    "flex h-10 w-full rounded-md border border-input bg-black text-white px-3 py-2 text-sm ring-offset-black file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
                     className
                 )}
                 ref={ref}
@@ -53,7 +53,7 @@ const InputLabel = React.forwardRef<
     <LabelPrimitive.Root
         ref={ref}
         className={cn(
-            "text-black text-lg lg:text-base font-normal font-serif",
+            "text-black text-lg lg:text-base font-normal font-serif min-h-[1.25rem]",
             labelVariants(),
             className
         )}

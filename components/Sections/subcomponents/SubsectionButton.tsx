@@ -6,7 +6,7 @@ import { Button } from "../../ui/Button";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import clsx from "clsx";
 
-interface Props extends React.HTMLAttributes<HTMLButtonElement> {
+interface Props extends React.ComponentPropsWithoutRef<"button"> {
     query?: {
         key: string;
         value: number;

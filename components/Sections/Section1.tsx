@@ -1,21 +1,75 @@
 "use client";
 
-import { DownloadIcon } from "@radix-ui/react-icons";
+import { useEffect } from "react";
+
 import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
-import { SectionDescription } from "./subcomponents/Header";
+
 import { MultisectionsSectionWrapper } from "./subcomponents/Wrapper";
+import { SectionDescription } from "./subcomponents/Header";
+
+import { DownloadIcon } from "@radix-ui/react-icons";
+
+type Window = typeof window & {
+    _n_factor: (p: number, q: number) => number;
+    _publicKey_totient: (p: number, q: number) => number;
+    _publicKey_e: (totient: number, initialExponent: number) => number;
+    _privateKey_d: (totient: number, exponent: number) => number;
+};
 
 export default function Section1() {
+    useEffect(() => {
+        const _window = window as Window;
+        //console.log("Resultado: " + _window._publicKey_n(17, 11));
+    }, []);
+
     return (
         <MultisectionsSectionWrapper
+            id="public-key-section"
+            onSubmit={(e) => {
+                e.preventDefault();
+                console.log("submit");
+            }}
             subsections={[
                 {
                     title: "Precisamos de números primos...",
                     description:
                         "Para começar a gerar sua chave pública, digite dois números primos nos campos abaixo",
                     children: <Subsection1 />,
-                    buttonDescription: "Próximo",
+                    button: {
+                        description: "Gerar expoente",
+                        onClick: () => {
+                            const pInput = document.getElementById(
+                                "p"
+                            ) as HTMLInputElement;
+                            const p = parseInt(pInput.value);
+
+                            const qInput = document.getElementById(
+                                "q"
+                            ) as HTMLInputElement;
+                            const q = parseInt(qInput.value);
+
+                            const _window = window as Window;
+                            const n = _window._n_factor(p, q);
+
+                            const totient = _window._publicKey_totient(p, q);
+
+                            const exponentInput = document.getElementById(
+                                "exponent"
+                            ) as HTMLInputElement;
+                            const exponent = parseInt(exponentInput.value);
+
+                            const publicKeyInput = document.getElementById(
+                                "public-key"
+                            ) as HTMLInputElement;
+                            publicKeyInput.value = `${n} ${exponent}`;
+
+                            const privateKeyInput = document.getElementById(
+                                "private-key"
+                            ) as HTMLInputElement;
+                            privateKeyInput.value = `${totient} ${exponent}`;
+                        },
+                    },
                 },
                 {
                     title: "E agora precisamos de um expoente",
@@ -24,14 +78,25 @@ export default function Section1() {
                         "Pra facilitar sua vida, geramos alguns expoentes válidos:",
                     ],
                     children: <Subsection2 />,
-                    buttonDescription: "Gerar chave pública",
+                    button: {
+                        description: "Gerar chave pública",
+                        onClick: () => {
+                            const publicKeyInput = document.getElementById(
+                                "public-key"
+                            ) as HTMLInputElement;
+                            publicKeyInput.select();
+                            document.execCommand("copy");
+                        },
+                    },
                 },
                 {
                     title: "Vòilá!",
                     description:
                         "Está tudo prontinho! Sua chave pública já foi gerada e pode ser utilizada.",
                     children: <Subsection3 />,
-                    buttonDescription: "Voltar ao início",
+                    button: {
+                        description: "Copiar chave pública",
+                    },
                 },
             ]}
         />
@@ -44,15 +109,15 @@ function Subsection1() {
             <Input
                 type="text"
                 pattern="\d*"
-                maxLength={4}
-                placeholder="1º número primo"
+                maxLength={10}
+                placeholder="1º número primo (p)"
                 className="text-center"
             />
             <Input
                 type="text"
                 pattern="\d*"
-                maxLength={4}
-                placeholder="2º número primo"
+                maxLength={10}
+                placeholder="2º número primo (q)"
                 className="text-center"
             />
         </div>

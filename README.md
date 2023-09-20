@@ -10,6 +10,8 @@ Utilize o cryptosia para gerar chaves pública e privada em perfeita sintonia, g
 
 ## ✨ Tecnologias
 
+Frontend:
+
 -   [ ] HTML
 -   [ ] CSS
 -   [ ] TypeScript
@@ -17,11 +19,17 @@ Utilize o cryptosia para gerar chaves pública e privada em perfeita sintonia, g
 -   [ ] TailwindCSS
 -   [ ] Radix & Radix Icons
 
+Backend
+
+-   [ ] Emscripten
+-   [ ] WebAssembly
+-   [ ] C
+
 ## 💽 Como compilar o backend em C
 
 -   Siga as instruções do **emscripten** em [emscripten.org/docs/getting_started/downloads.html](https://emscripten.org/docs/getting_started/downloads.html)
--   Abra o terminal `Emscripten Windows Command Prompt (emcmdprompt.bat)` disponível na pasta do **emscripten** e navegue até a pasta do projeto dentro do terminal
--   Compile o arquivo `cryptosia.c` com o comando `emcc cryptosia.c -o cryptosia.js -s EXPORTED_FUNCTIONS="['_cryptosia']" -s EXTRA_EXPORTED_RUNTIME_METHODS="['ccall', 'cwrap']" -s MODULARIZE=1 -s 'EXPORT_NAME="cryptosia"' -s WASM=1`
+-   Abra o terminal `Emscripten Windows Command Prompt (emcmdprompt.bat)` disponível na pasta do **emscripten** e navegue até o diretório `<diretório raíz do emsdk>/upstream/emscripten/`
+-   Compile o arquivo `cryptosia.c` com o comando `emcc "[diretório do arquivo C]\cryptosia.c" -o "[diretório de saída]\cryptosia.js" -lm -sEXPORTED_FUNCTIONS=[nome das funções antecipado de "_" e separados por "," como em "_int_sqrt"] -sEXPORTED_RUNTIME_METHODS=ccall,cwrap -Oz --profiling-funcs`
 -   Copie o arquivo `cryptosia.js` para a pasta `public` do projeto
 -   Copie o arquivo `cryptosia.wasm` para a pasta `public` do projeto
 
@@ -36,7 +44,7 @@ Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navega
 ## 👥 Grupo
 
 -   [ ] [Eduardo Maciel](https://github.com/theduardomaciel) - Frontend e Backend
--   [ ] [David Enéas] - Backend
+-   [ ] David Enéas - Backend
 
 ## 📝 Licença
 
