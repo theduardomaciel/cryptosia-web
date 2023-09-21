@@ -2,19 +2,21 @@
     cryptosia
 </h1>
 
-![cover](.github/cover.png?style=flat)
-
 <picture>
-  <source alt="Main picture dark" media="(prefers-color-scheme: dark)" srcset="/.github/cover.png">
-  <source alt="Main picture dark" media="(prefers-color-scheme: light)" srcset="/.github/cover_light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="/.github/cover.png">
+  <source media="(prefers-color-scheme: light)" srcset="/.github/cover_light.png">
+  <img alt="Main projeto cover." src="/.github/cover_light.png">
 </picture>
 
 ## 💻 Projeto
 
-Utilize o cryptosia para gerar chaves pública e privada em perfeita sintonia, garantindo segurança simplificada de mensagens simples por meio da Criptografia RSA.
+Utilize o cryptosia para gerar chaves pública e privada em sintonia, garantindo segurança simplificada de mensagens simples por meio da Criptografia RSA.
+
+<br />
 
 ## ✨ Tecnologias
 
+<!--
 #### Frontend:
 
 -   [ ] HTML
@@ -29,11 +31,25 @@ Utilize o cryptosia para gerar chaves pública e privada em perfeita sintonia, g
 -   [ ] Emscripten
 -   [ ] WebAssembly
 -   [ ] C
+-->
+
+| Frontend  | Backend |
+| ------------------ | ------------- |
+| HTML  | WebAssembly  |
+| CSS  | Emscripten  |
+| TypeScript  | C  |
+| Next.js  |   |
+| TailwindCSS  |   |
+| Radix & Radix Icons  |   |
+
+<br />
 
 ## 💽 Como compilar o backend em C
 
 > [!IMPORTANT]  
 > O passo a passo disponível a seguir refere-se à compilação em um dispositivo Windows. Para especificações em outros sistemas operacionais, visite a página oficial do [emscripten](https://emscripten.org/docs/getting_started/downloads.html).
+
+<br />
 
 -   Siga as instruções de instalação do **emscripten** em [emscripten.org/docs/getting_started/downloads.html](https://emscripten.org/docs/getting_started/downloads.html)
 -   Abra o terminal `Emscripten Windows Command Prompt (emcmdprompt.bat)` disponível no diretório `\emscripten\emsdk` e navegue até `\upstream\emscripten/`
@@ -54,6 +70,8 @@ emcc -O3 "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.c" -o "C
 
 -   Copie os arquivos `cryptosia.js` e `cryptosia.wasm` gerados para a pasta `public` do projeto
 
+<br />
+
 ## 🚀 Como executar
 
 -   Clone o repositório
@@ -61,6 +79,8 @@ emcc -O3 "C:\Users\eduar\Projetos\cryptosia\cryptosia-backend\cryptosia.c" -o "C
 -   Inicie o servidor com `npm run dev`, `yarn dev` ou `pnpm dev`
 
 Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navegador.
+
+<br />
 
 ## 👥 Grupo
 
@@ -70,6 +90,8 @@ Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navega
 -   [ ] Mariáh Lins Sena - Redição de texto
 -   [ ] Pedro Gabriel Medeiros de Lima - Redição de texto
 -   [ ] Victória Júllya Cabral da Silva - Redição de texto
+
+<br />
 
 ## 📝 Licença
 
