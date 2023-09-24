@@ -65,7 +65,7 @@ export default function Home() {
                                 Começar a criptografar
                             </p>
                             <div className="w-7 h-7 relative">
-                                <EncryptedIcon />
+                                <EncryptedIcon color="black" />
                             </div>
                         </Link>
                         <Link

@@ -95,8 +95,9 @@ export function MultisectionsSectionWrapper({
                             : 0
                         : 1,
                 }}
+                tabIndex={100}
                 className={cn("bg-black text-white", {
-                    "bg-transparent text-black hover:outline-black hover:outline-[1px]":
+                    "bg-transparent text-black hover:outline-black hover:outline-[1px] hover:bg-transparent":
                         currentSubsection == lastSubsection,
                 })}
                 {...buttonPropsRest}

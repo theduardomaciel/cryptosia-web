@@ -6,7 +6,7 @@ import SectionWrapper from "./subcomponents/Wrapper";
 import { Input, InputHeader, InputLabel, InputRoot } from "../ui/Input";
 import { Button } from "../ui/Button";
 
-import { PublicKeyIcon } from "@/public/icons/Sections";
+import EncryptedIcon from "@/public/icons/Encrypted";
 
 export default function Section3() {
     return (
@@ -14,23 +14,19 @@ export default function Section3() {
             <div className="flex w-full flex-col xl:flex-row items-start justify-between gap-2.5">
                 <InputRoot className="w-full">
                     <InputHeader
-                        icon={
-                            <PublicKeyIcon
-                                className="w-5 h-5"
-                                color={"black"}
-                            />
-                        }
+                        icon={<EncryptedIcon className="w-5 h-5 text-black" />}
                     >
-                        Chave privada (d)
+                        Chave privada
                     </InputHeader>
-                    <Input placeholder="d" pattern="\d*" maxLength={10} />
-                </InputRoot>
-                <InputRoot className="w-full">
-                    <InputLabel>Produto &quot;n&quot;</InputLabel>
                     <Input
-                        placeholder="produto n"
-                        pattern="\d*"
-                        maxLength={10}
+                        placeholder="[insira aqui a chave privada] (d, n)"
+                        className="text-center"
+                        style={{
+                            wordSpacing: "0.5rem",
+                        }}
+                        min={0}
+                        max={100000}
+                        type="password"
                     />
                 </InputRoot>
             </div>
