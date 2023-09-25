@@ -97,9 +97,9 @@ export default function Section3() {
                 <textarea
                     name="message"
                     id="message"
-                    placeholder="[...]"
+                    placeholder="[insira aqui a mensagem criptografada]"
                     className={
-                        "flex flex-1 border-2 border-dashed border-black rounded-md p-4 resize-none bg-transparent text-black placeholder-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        "flex flex-1 border-2 border-dashed border-black rounded-md p-4 resize-none bg-transparent text-black placeholder-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 max-xl:min-h-[15rem]"
                     }
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}

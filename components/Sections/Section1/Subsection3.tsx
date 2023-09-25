@@ -31,7 +31,7 @@ export default function Subsection3({
                     <p>{data?.exponent} como expoente</p>
                 </div>
             </div>
-            <div className="flex flex-row items-center justify-between flex-wrap gap-8 w-full">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 w-full">
                 <KeyView
                     keyString={data?.publicKey}
                     icon={<PublicKeyIcon className="w-5 h-5" color="black" />}
@@ -57,7 +57,7 @@ function KeyView({ keyString, icon, title }: KeyViewProps) {
     const id = useId();
 
     return (
-        <div className="flex flex-col items-start justify-start flex-1 gap-2.5">
+        <div className="flex flex-col items-start justify-start flex-1 gap-2.5 w-full">
             <div className="flex flex-row items-center justify-start gap-2.5">
                 {icon}
                 <p className="text-black text-lg xl:text-base font-medium font-serif leading-none">

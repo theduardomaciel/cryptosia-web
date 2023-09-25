@@ -19,6 +19,8 @@ const INITIAL_MIN = 300;
 const INITIAL_MAX = 2000;
 
 export default function PrimesGenerator() {
+    const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
+
     const [min, setMin] = useState<number>(INITIAL_MIN);
     const [max, setMax] = useState<number>(INITIAL_MAX);
 
@@ -32,11 +34,30 @@ export default function PrimesGenerator() {
         if (min < MIN_VALUE) setMin(MIN_VALUE);
         if (max > MAX_VALUE) setMax(MAX_VALUE);
 
-        // ...
+        // Geramos os primos
+        const p = generatePrimeNumber(min, max);
+
+        if (!p) throw new Error("Não foi possível gerar um número primo.");
+
+        const q = generatePrimeNumber(min, max, [p]);
+
+        if (!q) throw new Error("Não foi possível gerar um número primo.");
+
+        const p_input = document.getElementById("p") as HTMLInputElement;
+        const q_input = document.getElementById("q") as HTMLInputElement;
+
+        p_input.value = p.toString();
+        q_input.value = q.toString();
+
+        setIsPopoverOpen(false);
+        console.log("Gerado com sucesso!");
     }, [min, max]);
 
     return (
-        <Popover>
+        <Popover
+            open={isPopoverOpen}
+            onOpenChange={(isOpen) => setIsPopoverOpen(isOpen)}
+        >
             <PopoverTrigger className="flex flex-row items-center justify-center bg-black hover:bg-bg-01 transition-colors rounded-full text-sm font-sans font-bold px-4 py-2 gap-2 w-full lg:w-fit">
                 <TriggerIcon />
                 Gere um par aleatório
@@ -94,7 +115,7 @@ export default function PrimesGenerator() {
                     className="w-full"
                     min={MIN_VALUE}
                     max={MAX_VALUE}
-                    defaultValue={[INITIAL_MIN, INITIAL_MAX]}
+                    defaultValue={[min, max]}
                     step={10}
                     minStepsBetweenThumbs={1}
                     onValueChange={(value) => {
@@ -141,4 +162,23 @@ function TriggerIcon() {
             </g>
         </svg>
     );
+}
+
+function generatePrimeNumber(
+    min: number,
+    max: number,
+    exceptions: number[] = []
+) {
+    const primes: number[] = [];
+    for (let i = min; i <= max; i++) {
+        let isPrime = true;
+        for (let j = 2; j <= Math.sqrt(i); j++) {
+            if (i % j === 0 || exceptions.includes(i)) {
+                isPrime = false;
+                break;
+            }
+        }
+        if (isPrime) primes.push(i);
+    }
+    return primes[Math.floor(Math.random() * primes.length)];
 }
