@@ -8,6 +8,7 @@ import { Button } from "../ui/Button";
 
 // Icons
 import { PublicKeyIcon } from "@/public/icons/Sections";
+import { DownloadIcon } from "@radix-ui/react-icons";
 
 // Utils
 import type { WasmFunctions, WasmMethods } from "@/lib/@types";
@@ -36,9 +37,11 @@ export default function Section2() {
     }, []);
 
     const cryptographMessage = useCallback(() => {
+        const [e_value, n_value] = publicKey.split(" ");
+
         const messagePointer = WASM.current?.stringToNewUTF8(message);
-        const e = WASM.current?.stringToNewUTF8("65537");
-        const n = WASM.current?.stringToNewUTF8("49163");
+        const e = WASM.current?.stringToNewUTF8(e_value);
+        const n = WASM.current?.stringToNewUTF8(n_value);
 
         const encryptedMessage = WASM.current?.ccall(
             "cryptosia_encrypt",
@@ -49,52 +52,26 @@ export default function Section2() {
 
         console.log("Mensagem criptografada: " + encryptedMessage);
 
-        /* // Convertemos a string da mensagem para um ponteiro
-        const messagePointer = WASM.current?.stringToNewUTF8(message);
-        console.log("Mensagem convertida em ponteiro: " + messagePointer);
-
-        const [n, exponent] = publicKey.split(" ");
-        const nPointer = WASM.current?.stringToNewUTF8(n);
-        const exponentPointer = WASM.current?.stringToNewUTF8(exponent);
-
-        if (!messagePointer || !nPointer || !exponentPointer)
-            return console.error(
-                "Erro ao criptografar mensagem (ausência de conversão)"
-            );
-
-        console.log("n local: " + n);
-        console.log("e local: " + exponent);
-
-        const resultPointer = WASM.current?._cryptosia_encrypt(
-            messagePointer,
-            exponentPointer,
-            nPointer
-        );
-
-        //WASM.current?.free(convertedMessage);
-
-        if (!resultPointer)
-            return console.error(
-                "Erro ao criptografar mensagem (ausência de ponteiro)"
-            );
-
-        console.log("Ponteiro da mensagem criptografada: " + resultPointer);
-
-        const encryptedMessage = WASM.current?.UTF8ToString(resultPointer);
-        console.log("Mensagem criptografada: " + encryptedMessage);
-
         if (!encryptedMessage)
             return console.error(
                 "Erro ao criptografar mensagem (ausência de mensagem)"
             );
 
         setMessage(encryptedMessage);
-        setPublicKey(""); */
+        setPublicKey("");
+
+        const downloadButton = document.getElementById(
+            "download-encrypted-message"
+        );
+
+        if (downloadButton) {
+            downloadButton.style.display = "flex";
+        }
     }, [publicKey, message]);
 
     return (
         <SectionWrapper>
-            <div className="flex flex-col items-center justify-center w-full gap-4">
+            <div className="flex w-full flex-col items-start gap-4">
                 <InputRoot className="w-full">
                     <InputHeader
                         icon={
@@ -137,18 +114,38 @@ export default function Section2() {
                     </div>
                 </div> */}
             </div>
-            <textarea
-                name="message"
-                id="message"
-                cols={30}
-                rows={10}
-                placeholder="[insira aqui a mensagem a ser criptografada]"
-                className={
-                    "flex flex-1 border-2 border-dashed border-black rounded-md p-4 resize-none w-full h-full bg-transparent text-black placeholder-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                }
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-            />
+            <div className="flex w-full flex-1 relative">
+                <textarea
+                    name="message"
+                    id="message"
+                    placeholder="[insira aqui a mensagem a ser criptografada]"
+                    className={
+                        "flex flex-1 border-2 border-dashed border-black rounded-md p-4 resize-none w-full h-full bg-transparent text-black placeholder-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    }
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                />
+                <Button
+                    id="download-encrypted-message"
+                    className="absolute bottom-0 right-0 w-10 h-10"
+                    onClick={() => {
+                        if (message.length === 0)
+                            return console.error(
+                                `Mensagem criptografada ausente`
+                            );
+
+                        const file = new Blob([message], {
+                            type: "text/plain",
+                        });
+                        const a = document.createElement("a");
+                        a.href = URL.createObjectURL(file);
+                        a.download = "encrypted-message";
+                        a.click();
+                    }}
+                >
+                    <DownloadIcon width={18} height={18} color="white" />
+                </Button>
+            </div>
             <Button
                 disabled={publicKey.length == 0 || message.length === 0}
                 onClick={cryptographMessage}

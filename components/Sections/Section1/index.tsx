@@ -215,8 +215,9 @@ export default function Section1() {
             values.exponent
         );
 
-        const publicKey = `${n} ${values.exponent}`;
-        const privateKeyString = `${n} ${privateKey}`;
+        // d ou e | d = privada, e = pública e em seguida o n
+        const publicKey = `${values.exponent} ${n}`;
+        const privateKeyString = `${privateKey} ${n}`;
 
         console.log("Public key:", publicKey);
         console.log("Private key:", privateKeyString);
