@@ -53,6 +53,11 @@ export default function RootLayout({
                         src="/wasm/cryptosia.js"
                         strategy="beforeInteractive"
                     />
+                    <Script>
+                        {`if (window.localStorage.getItem("reduce-motion") === "true") {
+                            document.documentElement.classList.add("reduce-motion");
+                        }`}
+                    </Script>
                 </body>
             </html>
         </>

@@ -40,6 +40,8 @@ const config: Config = {
             },
             animation: {
                 flicker: "flicker 0.5s infinite",
+                primary: "primary 30s linear infinite",
+                secondary: "secondary 30s linear infinite",
             },
             keyframes: {
                 flicker: {
@@ -51,6 +53,22 @@ const config: Config = {
                     },
                     "100%": {
                         opacity: "0",
+                    },
+                },
+                primary: {
+                    from: {
+                        transform: "translateX(0vw)",
+                    },
+                    to: {
+                        transform: "translateX(calc(-100% - 3.5rem))",
+                    },
+                },
+                secondary: {
+                    from: {
+                        transform: "translateX(calc(100% + 3.5rem))",
+                    },
+                    to: {
+                        transform: "translateX(0vw)",
                     },
                 },
             },

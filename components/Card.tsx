@@ -8,7 +8,7 @@ interface Props {
 
 export default function Card({ icon, title, description }: Props) {
     return (
-        <div className="w-full h-fit px-6 py-8 bg-white-200 border-primary-200 dark:border-gray-100 dark:bg-gray-200 rounded-[15px] flex-col justify-center items-start gap-[15px] inline-flex border border-transparent transition-colors hover:border-primary-200 hover:bg-primary-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
+        <div className="flex flex-1 w-full xl:w-[40vw] px-6 py-8 bg-white-200 border-primary-200 dark:border-gray-100 dark:bg-gray-200 rounded-[15px] flex-col justify-center items-start gap-[15px] border border-transparent transition-colors hover:border-primary-200 hover:bg-primary-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
             <div className="justify-center items-center gap-2.5 inline-flex">
                 {icon}
             </div>

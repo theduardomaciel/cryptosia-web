@@ -60,7 +60,7 @@ export function MultisectionsSectionWrapper({
         >
             <div
                 /* O gap aqui deve corresponder ao dobro do padding horizontal (px) da div parente (no mobile) */
-                className="flex flex-row items-start justify-start"
+                className="flex flex-row items-start justify-start motion-reduce:!transition-none"
                 style={{
                     transform: `translateX(calc(-${percentageWidth}%))`,
                     transition: "transform 0.5s ease-in-out",
@@ -71,7 +71,7 @@ export function MultisectionsSectionWrapper({
                         /* O cálculo da largura é o seguinte: 
                         /* Versão mobile (design vertical): 100vw - (px da div no topo da hierarquia * 2) - [var(--wrapper) * 2] */
                         /* Versão desktop (design horizontal): 100vw - (px da div no topo da hierarquia * 2) - [var(--wrapper) * 2] - [tamanho dos 3 "headers" das seções (cada um vale 12, portanto: 12 * 3 = 36rem)] */
-                        className="flex h-full w-[calc(100vw-2.5rem-var(--wrapper)*2)] xl:w-[calc(100vw-5rem-var(--wrapper)*2-36rem)] flex-col items-start justify-start gap-4 transition-opacity duration-700"
+                        className="flex h-full w-[calc(100vw-2.5rem-var(--wrapper)*2)] xl:w-[calc(100vw-5rem-var(--wrapper)*2-36rem)] flex-col items-start justify-start gap-4 transition-opacity duration-700 motion-reduce:!transition-none"
                         style={{
                             opacity: index == currentSubsection ? 1 : 0,
                         }}

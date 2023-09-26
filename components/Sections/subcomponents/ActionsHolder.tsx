@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 // Icons
 import { CheckIcon, CopyIcon, DownloadIcon } from "@radix-ui/react-icons";
-import { useId } from "react";
+import { useCallback, useId } from "react";
 
 interface Props {
     isVisible: boolean;
@@ -12,6 +12,42 @@ interface Props {
 
 export default function ActionsHolder({ isVisible, textareaId }: Props) {
     const id = useId();
+
+    const animateButton = useCallback((buttonId: string) => {
+        const button = document.getElementById(`${buttonId}-message_${id}`);
+
+        if (button) {
+            const buttonIcon = document.getElementById(
+                `${buttonId}-message-icon_${id}`
+            );
+
+            const checkIcon = document.getElementById(
+                `${buttonId}-message-check-icon_${id}`
+            );
+
+            if (buttonIcon && checkIcon) {
+                buttonIcon.classList.add("scale-0");
+                buttonIcon.classList.remove("scale-100");
+
+                checkIcon.classList.add("scale-100");
+                checkIcon.classList.remove("scale-0");
+            }
+
+            button.style.maxWidth = "100%";
+
+            setTimeout(() => {
+                button.style.maxWidth = "2.5rem";
+
+                if (buttonIcon && checkIcon) {
+                    buttonIcon.classList.add("scale-100");
+                    buttonIcon.classList.remove("scale-0");
+
+                    checkIcon.classList.add("scale-0");
+                    checkIcon.classList.remove("scale-100");
+                }
+            }, 1000);
+        }
+    }, []);
 
     return (
         <div
@@ -26,7 +62,7 @@ export default function ActionsHolder({ isVisible, textareaId }: Props) {
                 tabIndex={isVisible ? 0 : -1}
                 id={`copy-message_${id}`}
                 className={cn(
-                    "flex flex-row items-center justify-start max-w-[2.5rem] h-10 outline-0 hover:outline-0 rounded-tr-none rounded-br-none rounded-bl-none overflow-x-hidden overflow-y-hidden transition-all duration-500 pl-3"
+                    "flex flex-row items-center justify-start max-w-[2.5rem] h-10 outline-0 hover:outline-0 rounded-tr-none rounded-br-none rounded-bl-none overflow-x-hidden overflow-y-hidden transition-all duration-500 pl-3 motion-reduce:!transition-none"
                 )}
                 onClick={() => {
                     const textarea = document.getElementById(
@@ -39,44 +75,10 @@ export default function ActionsHolder({ isVisible, textareaId }: Props) {
 
                     textarea.select();
 
-                    const button = document.getElementById(
-                        `copy-message_${id}`
-                    );
-
                     const message = textarea.value;
                     navigator.clipboard.writeText(message);
 
-                    if (button) {
-                        const copyIcon = document.getElementById(
-                            `copy-message-icon_${id}`
-                        );
-
-                        const checkIcon = document.getElementById(
-                            `copy-message-check-icon_${id}`
-                        );
-
-                        if (copyIcon && checkIcon) {
-                            copyIcon.classList.add("scale-0");
-                            copyIcon.classList.remove("scale-100");
-
-                            checkIcon.classList.add("scale-100");
-                            checkIcon.classList.remove("scale-0");
-                        }
-
-                        button.style.maxWidth = "100%";
-
-                        setTimeout(() => {
-                            button.style.maxWidth = "2.5rem";
-
-                            if (copyIcon && checkIcon) {
-                                copyIcon.classList.add("scale-100");
-                                copyIcon.classList.remove("scale-0");
-
-                                checkIcon.classList.add("scale-0");
-                                checkIcon.classList.remove("scale-100");
-                            }
-                        }, 1000);
-                    }
+                    animateButton("copy");
                 }}
             >
                 <div className="flex items-center justify-center min-w-[18px] relative">
@@ -99,7 +101,7 @@ export default function ActionsHolder({ isVisible, textareaId }: Props) {
             </Button>
             <Button
                 tabIndex={isVisible ? 0 : -1}
-                id="download-encrypted-message"
+                id={`download-message_${id}`}
                 className="w-10 min-w-[2.5rem] h-10 outline-0 hover:outline-0 rounded-tl-none rounded-bl-none rounded-tr-none"
                 onClick={() => {
                     const textarea = document.getElementById(
@@ -119,9 +121,26 @@ export default function ActionsHolder({ isVisible, textareaId }: Props) {
                     a.href = URL.createObjectURL(file);
                     a.download = textareaId;
                     a.click();
+
+                    animateButton("download");
                 }}
             >
-                <DownloadIcon width={18} height={18} color="white" />
+                <div className="flex items-center justify-center min-w-[18px] relative">
+                    <DownloadIcon
+                        id={`download-message-icon_${id}`}
+                        width={18}
+                        height={18}
+                        color="white"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 transition-transform duration-500"
+                    />
+                    <CheckIcon
+                        id={`download-message-check-icon_${id}`}
+                        width={18}
+                        height={18}
+                        color="white"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 transition-transform duration-500"
+                    />
+                </div>
             </Button>
         </div>
     );

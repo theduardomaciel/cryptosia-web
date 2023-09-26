@@ -32,7 +32,7 @@ export default function Section({
     return (
         <li
             className={clsx(
-                "flex flex-col xl:flex-row group aria-expanded:hover:bg-primary-200 aria-expanded:dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 w-full xl:max-w-fit xl:h-96 overflow-hidden ease-in-out flex-grow xl:transition-[max-width] xl:duration-700",
+                "flex flex-col xl:flex-row group aria-expanded:hover:bg-primary-200 aria-expanded:dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 w-full xl:max-w-fit xl:h-96 overflow-hidden ease-in-out flex-grow xl:transition-[max-width] xl:duration-700 motion-reduce:!transition-none",
                 {
                     "xl:!max-w-[calc(100vw-24em-var(--wrapper)*2)]": isExpanded,
                     "xl:!max-w-[12rem]": !isExpanded,
@@ -62,7 +62,7 @@ export default function Section({
             <div className="flex flex-1 overflow-hidden">
                 <div
                     className={clsx(
-                        "pt-0 w-full xl:min-w-[calc(100vw-36rem-var(--wrapper)*2)] transition-[max-height,opacity] duration-700 bg-primary-100 dark:bg-primary-200",
+                        "pt-0 w-full xl:min-w-[calc(100vw-36rem-var(--wrapper)*2)] transition-[max-height,opacity] duration-700 bg-primary-100 dark:bg-primary-200 motion-reduce:!transition-none",
                         {
                             "max-xl:max-h-[50rem]": isExpanded,
                             "max-xl:max-h-0": !isExpanded,

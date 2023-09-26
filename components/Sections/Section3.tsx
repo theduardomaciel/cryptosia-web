@@ -91,9 +91,7 @@ export default function Section3() {
         <SectionWrapper>
             <div className="flex w-full flex-col items-start gap-4">
                 <InputRoot className="w-full">
-                    <InputHeader
-                        icon={<EncryptedIcon className="w-5 h-5 text-black" />}
-                    >
+                    <InputHeader icon={<EncryptedIcon color="black" />}>
                         Chave privada
                     </InputHeader>
                     <Input

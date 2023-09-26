@@ -29,7 +29,7 @@ export default function Home() {
                 style={{
                     backgroundSize: "40px 40px",
                     backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);`,
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px)`,
                 }}
             >
                 <Header />
@@ -90,26 +90,42 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
-                <ul className="flex flex-col lg:flex-row w-full items-start justify-between my-28 gap-14">
-                    <Card
-                        icon={<ComputerIcon />}
-                        title="Tudo em um só lugar"
-                        description="Gere uma chave pública, criptografe e descriptografe em um só local, facilitando seu uso."
-                    />
-                    <Card
-                        icon={<CryptographyIcon />}
-                        title="Simplificadamente seguro"
-                        description="Tenha a segurança de que suas mensagens estão seguras após simples e curtos passos."
-                    />
-                    <Card
-                        icon={<RocketIcon />}
-                        title="Fácil e rápido"
-                        description="Utilize da criptografia RSA para codificar mensagens que necessitam de uma camada de proteção maior."
-                    />
+                <ul className="flex flex-col xl:flex-row w-full items-center justify-center my-28 relative">
+                    <div
+                        id="animate-primary"
+                        className="flex flex-col xl:flex-row items-start justify-start w-full gap-14 xl:animate-primary xl:motion-reduce:animate-none"
+                    >
+                        <Cards />
+                    </div>
+                    <div className="hidden xl:flex flex-col xl:flex-row items-start justify-start gap-14 w-full absolute top-[0%] left-0 animate-secondary xl:motion-reduce:animate-none">
+                        <Cards />
+                    </div>
                 </ul>
                 <SectionsHolder />
             </main>
             <Footer />
         </Fragment>
+    );
+}
+
+function Cards() {
+    return (
+        <>
+            <Card
+                icon={<ComputerIcon />}
+                title="Tudo em um só lugar"
+                description="Gere uma chave pública, criptografe e descriptografe em um só local, facilitando seu uso."
+            />
+            <Card
+                icon={<CryptographyIcon />}
+                title="Simplificadamente seguro"
+                description="Tenha a segurança de que suas mensagens estão seguras após simples e curtos passos."
+            />
+            <Card
+                icon={<RocketIcon />}
+                title="Fácil e rápido"
+                description="Utilize da criptografia RSA para codificar mensagens que necessitam de mais proteção."
+            />
+        </>
     );
 }

@@ -18,7 +18,11 @@ const MAX_VALUE = 5000;
 const INITIAL_MIN = 300;
 const INITIAL_MAX = 2000;
 
-export default function PrimesGenerator() {
+export default function PrimesGenerator({
+    generated,
+}: {
+    generated: (p: number, q: number) => void;
+}) {
     const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
     const [min, setMin] = useState<number>(INITIAL_MIN);
@@ -50,7 +54,8 @@ export default function PrimesGenerator() {
         q_input.value = q.toString();
 
         setIsPopoverOpen(false);
-        console.log("Gerado com sucesso!");
+        console.log("Gerado com sucesso!" + p + " " + q);
+        generated(p, q);
     }, [min, max]);
 
     return (
@@ -58,7 +63,7 @@ export default function PrimesGenerator() {
             open={isPopoverOpen}
             onOpenChange={(isOpen) => setIsPopoverOpen(isOpen)}
         >
-            <PopoverTrigger className="flex flex-row items-center justify-center bg-black hover:bg-bg-01 transition-colors rounded-full text-sm font-sans font-bold px-4 py-2 gap-2 w-full lg:w-fit">
+            <PopoverTrigger className="flex flex-row items-center justify-center bg-black text-white hover:bg-bg-01 transition-colors rounded-full text-sm font-sans font-bold px-4 py-2 gap-2 max-md:w-full w-fit">
                 <TriggerIcon />
                 Gere um par aleatório
             </PopoverTrigger>

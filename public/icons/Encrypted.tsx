@@ -22,7 +22,7 @@ export default function EncryptedIcon({
                 width="28"
                 height="28"
             >
-                <rect width="28" height="28" fill={"currentColor"} />
+                <rect width="28" height="28" fill={"#FFFFFF"} />
             </mask>
             <g mask="url(#mask0_104_153)">
                 <path
