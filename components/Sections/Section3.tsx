@@ -1,14 +1,14 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // Components
 import SectionWrapper from "./subcomponents/Wrapper";
+import ActionsHolder from "./subcomponents/ActionsHolder";
 import { Input, InputHeader, InputRoot } from "../ui/Input";
 import { Button } from "../ui/Button";
 
 // Icons
 import EncryptedIcon from "@/public/icons/Encrypted";
-import { DownloadIcon } from "@radix-ui/react-icons";
 
 // Utils
 import type { WasmFunctions, WasmMethods } from "@/lib/@types";
@@ -16,6 +16,8 @@ import type { WasmFunctions, WasmMethods } from "@/lib/@types";
 export default function Section3() {
     const [privateKey, setPrivateKey] = useState<string>("");
     const [message, setMessage] = useState<string>("");
+    const [hasDecryptedMessage, setHasDecryptedMessage] =
+        useState<boolean>(false);
 
     const WASM = useRef<(WasmFunctions & WasmMethods) | null>(null);
 
@@ -57,9 +59,33 @@ export default function Section3() {
                 "Erro ao descriptografar mensagem (ausência de mensagem)"
             );
 
-        setMessage(decryptedMessage);
         setPrivateKey("");
+        setMessage("");
+        setHasDecryptedMessage(false);
+
+        const velocity = decryptedMessage.length / 1000;
+
+        const textArea = document.getElementById(
+            "decrypted-message"
+        ) as HTMLTextAreaElement;
+        textArea.scrollTop = textArea.scrollHeight;
+        textArea.focus();
+
+        // Animamos o surgimento da mensagem descriptografada
+        let i = 0;
+        const intervalId = setInterval(() => {
+            setMessage(decryptedMessage.slice(0, i));
+            textArea.setSelectionRange(i, i);
+            i++;
+
+            if (i > decryptedMessage.length) {
+                clearInterval(intervalId);
+                setHasDecryptedMessage(true);
+            }
+        }, velocity);
     }, [privateKey, message]);
+
+    const keySplit = useMemo(() => privateKey.split(" "), [privateKey]);
 
     return (
         <SectionWrapper>
@@ -72,7 +98,7 @@ export default function Section3() {
                     </InputHeader>
                     <Input
                         placeholder="[insira aqui a chave privada] (d, n)"
-                        className="text-center"
+                        className="text-center font-bold"
                         style={{
                             wordSpacing: "0.5rem",
                         }}
@@ -80,11 +106,19 @@ export default function Section3() {
                         max={100000}
                         maxLength={51}
                         value={privateKey}
+                        onFocus={(e) => {
+                            // Limpamos o campo de chave caso haja uma mensagem criptografada
+                            if (hasDecryptedMessage) {
+                                setPrivateKey("");
+                                setHasDecryptedMessage(false);
+                            }
+                        }}
                         onChange={(e) => {
                             if (
-                                e.target.value.length > 0 &&
-                                isNaN(parseFloat(e.target.value)) &&
-                                !isFinite(parseInt(e.target.value))
+                                (e.target.value.length > 0 &&
+                                    isNaN(parseFloat(e.target.value)) &&
+                                    !isFinite(parseInt(e.target.value))) ||
+                                e.target.value.split(" ").length > 2
                             )
                                 return;
 
@@ -93,10 +127,10 @@ export default function Section3() {
                     />
                 </InputRoot>
             </div>
-            <div className="flex w-full h-full flex-1 relative">
+            <div className="flex w-full h-full flex-1 relative overflow-hidden">
                 <textarea
-                    name="message"
-                    id="message"
+                    name="decrypted-message"
+                    id="decrypted-message"
                     placeholder="[insira aqui a mensagem criptografada]"
                     className={
                         "flex flex-1 border-2 border-dashed border-black rounded-md p-4 resize-none bg-transparent text-black placeholder-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 max-xl:min-h-[15rem]"
@@ -104,32 +138,18 @@ export default function Section3() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                 />
-                <Button
-                    className="absolute bottom-0 right-0 w-10 h-10 transition-opacity"
-                    style={{
-                        opacity: message.length === 0 ? 0 : 1,
-                    }}
-                    disabled={message.length === 0}
-                    onClick={() => {
-                        if (message.length === 0)
-                            return console.error(
-                                `Mensagem descriptografada ausente`
-                            );
-
-                        const file = new Blob([message], {
-                            type: "text/plain",
-                        });
-                        const a = document.createElement("a");
-                        a.href = URL.createObjectURL(file);
-                        a.download = "decrypted-message";
-                        a.click();
-                    }}
-                >
-                    <DownloadIcon width={18} height={18} color="white" />
-                </Button>
+                <ActionsHolder
+                    isVisible={hasDecryptedMessage}
+                    textareaId="decrypted-message"
+                />
             </div>
             <Button
-                disabled={privateKey.length == 0 || message.length === 0}
+                disabled={
+                    privateKey.length == 0 ||
+                    message.length === 0 ||
+                    keySplit.length < 2 ||
+                    (keySplit[1] !== undefined && keySplit[1].length < 1)
+                }
                 onClick={decryptographMessage}
             >
                 Descriptografar texto

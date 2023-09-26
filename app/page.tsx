@@ -24,7 +24,14 @@ import SectionsHolder from "@/components/Sections/Holder";
 export default function Home() {
     return (
         <Fragment>
-            <main className="flex w-screen flex-col items-center justify-start px-[var(--wrapper)]">
+            <main
+                className="flex w-screen flex-col items-center justify-start px-[var(--wrapper)]"
+                style={{
+                    backgroundSize: "40px 40px",
+                    backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);`,
+                }}
+            >
                 <Header />
                 <div className="flex w-full flex-col items-center justify-start mt-28 gap-12">
                     <Link

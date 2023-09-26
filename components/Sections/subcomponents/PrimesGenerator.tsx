@@ -128,7 +128,7 @@ export default function PrimesGenerator() {
                     type="button"
                     onClick={generateRandomPrime}
                 >
-                    Gerar pares
+                    Gerar par aleatório
                 </Button>
             </PopoverContent>
         </Popover>

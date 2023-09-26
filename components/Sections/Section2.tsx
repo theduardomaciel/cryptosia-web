@@ -1,14 +1,14 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // Components
 import SectionWrapper from "./subcomponents/Wrapper";
+import ActionsHolder from "./subcomponents/ActionsHolder";
 import { Input, InputHeader, InputRoot } from "../ui/Input";
 import { Button } from "../ui/Button";
 
 // Icons
 import { PublicKeyIcon } from "@/public/icons/Sections";
-import { DownloadIcon } from "@radix-ui/react-icons";
 
 // Utils
 import type { WasmFunctions, WasmMethods } from "@/lib/@types";
@@ -16,6 +16,9 @@ import type { WasmFunctions, WasmMethods } from "@/lib/@types";
 export default function Section2() {
     const [publicKey, setPublicKey] = useState<string>("");
     const [message, setMessage] = useState<string>("");
+
+    const [hasEncryptedMessage, setHasEncryptedMessage] =
+        useState<boolean>(false);
 
     const WASM = useRef<(WasmFunctions & WasmMethods) | null>(null);
 
@@ -57,17 +60,44 @@ export default function Section2() {
                 "Erro ao criptografar mensagem (ausência de mensagem)"
             );
 
-        setMessage(encryptedMessage);
-        setPublicKey("");
+        setMessage("");
+        setHasEncryptedMessage(false);
 
-        const downloadButton = document.getElementById(
-            "download-encrypted-message"
-        );
+        const velocity = encryptedMessage.length / 1000;
 
-        if (downloadButton) {
-            downloadButton.style.display = "flex";
-        }
+        const textArea = document.getElementById(
+            "encrypted-message"
+        ) as HTMLTextAreaElement;
+        textArea.scrollTop = textArea.scrollHeight;
+        textArea.focus();
+
+        // Animamos o surgimento da mensagem criptografada
+        let i = 0;
+        const intervalId = setInterval(() => {
+            setMessage(encryptedMessage.slice(0, i));
+            textArea.setSelectionRange(i, i);
+            i++;
+
+            if (i > encryptedMessage.length) {
+                clearInterval(intervalId);
+                setHasEncryptedMessage(true);
+            }
+        }, velocity);
+
+        /* let i = message.length;
+        const wipingInterval = setInterval(() => {
+            setMessage(message_cache.slice(0, i));
+
+            i--;
+
+            if (i <= -1) {
+                clearInterval(wipingInterval);
+                
+            }
+        }, 1); */
     }, [publicKey, message]);
+
+    const keySplit = useMemo(() => publicKey.split(" "), [publicKey]);
 
     return (
         <SectionWrapper>
@@ -85,18 +115,26 @@ export default function Section2() {
                     </InputHeader>
                     <Input
                         placeholder="[insira aqui a chave pública] (e, n)"
-                        className="text-center"
+                        className="text-center font-bold"
                         style={{
                             wordSpacing: "0.5rem",
                         }}
                         type="text"
                         maxLength={51}
                         value={publicKey}
+                        onFocus={(e) => {
+                            // Limpamos o campo de chave caso haja uma mensagem criptografada
+                            if (hasEncryptedMessage) {
+                                setPublicKey("");
+                                setHasEncryptedMessage(false);
+                            }
+                        }}
                         onChange={(e) => {
                             if (
-                                e.target.value.length > 0 &&
-                                isNaN(parseFloat(e.target.value)) &&
-                                !isFinite(parseInt(e.target.value))
+                                (e.target.value.length > 0 &&
+                                    isNaN(parseFloat(e.target.value)) &&
+                                    !isFinite(parseInt(e.target.value))) ||
+                                e.target.value.split(" ").length > 2
                             )
                                 return;
 
@@ -114,40 +152,36 @@ export default function Section2() {
                     </div>
                 </div> */}
             </div>
-            <div className="flex w-full flex-1 relative">
+            <div className="flex w-full flex-1 relative overflow-hidden">
                 <textarea
-                    name="message"
-                    id="message"
+                    name="encrypted-message"
+                    id="encrypted-message"
                     placeholder="[insira aqui a mensagem a ser criptografada]"
                     className={
-                        "flex flex-1 border-2 border-dashed border-black rounded-md p-4 resize-none w-full h-full bg-transparent text-black placeholder-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 max-xl:min-h-[15rem]"
+                        "flex flex-1 border-2 border-dashed border-black rounded-md p-4 resize-none w-full h-full bg-transparent text-black placeholder-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 max-xl:min-h-[15rem] font-sans text-base"
                     }
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                />
-                <Button
-                    id="download-encrypted-message"
-                    className="absolute bottom-0 right-0 w-10 h-10"
-                    onClick={() => {
-                        if (message.length === 0)
-                            return console.error(
-                                `Mensagem criptografada ausente`
-                            );
-
-                        const file = new Blob([message], {
-                            type: "text/plain",
-                        });
-                        const a = document.createElement("a");
-                        a.href = URL.createObjectURL(file);
-                        a.download = "encrypted-message";
-                        a.click();
+                    onChange={(e) => {
+                        if (hasEncryptedMessage) {
+                            setMessage("");
+                            setHasEncryptedMessage(false);
+                        } else {
+                            setMessage(e.target.value);
+                        }
                     }}
-                >
-                    <DownloadIcon width={18} height={18} color="white" />
-                </Button>
+                />
+                <ActionsHolder
+                    isVisible={hasEncryptedMessage}
+                    textareaId="encrypted-message"
+                />
             </div>
             <Button
-                disabled={publicKey.length == 0 || message.length === 0}
+                disabled={
+                    publicKey.length == 0 ||
+                    message.length === 0 ||
+                    keySplit.length < 2 ||
+                    (keySplit[1] !== undefined && keySplit[1].length < 1)
+                }
                 onClick={cryptographMessage}
             >
                 Criptografar texto

@@ -34,8 +34,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
+    modal,
 }: {
     children: React.ReactNode;
+    modal: React.ReactNode;
 }) {
     return (
         <>
@@ -43,7 +45,10 @@ export default function RootLayout({
                 <body
                     className={`${inconsolata.variable} ${crete_round.variable} ${jakarta_sans.variable}`}
                 >
-                    <Providers>{children}</Providers>
+                    <Providers>
+                        {children}
+                        {modal}
+                    </Providers>
                     <Script
                         src="/wasm/cryptosia.js"
                         strategy="beforeInteractive"

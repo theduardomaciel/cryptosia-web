@@ -1,6 +1,8 @@
-import Logo from "@/public/Logo";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+
+// Icons
+import Logo from "@/public/Logo";
+import { AccessibilityIcon } from "@radix-ui/react-icons";
 
 export default function Header() {
     return (
@@ -8,11 +10,8 @@ export default function Header() {
             <div className="justify-center items-center gap-2.5 flex">
                 <Logo />
             </div>
-            <Link
-                href={"https://github.com/theduardomaciel/cryptosia"}
-                target="_blank"
-            >
-                <GitHubLogoIcon
+            <Link href={"/accessibility"} scroll={false}>
+                <AccessibilityIcon
                     width={`1.25rem`}
                     height={`1.25rem`}
                     className="text-black dark:text-[var(--neutral)] cursor-pointer"

@@ -38,6 +38,22 @@ const config: Config = {
                 title: "var(--font-inconsolata)",
                 serif: "var(--font-crete-round)",
             },
+            animation: {
+                flicker: "flicker 0.5s infinite",
+            },
+            keyframes: {
+                flicker: {
+                    "0%": {
+                        opacity: "0",
+                    },
+                    "50%": {
+                        opacity: "1",
+                    },
+                    "100%": {
+                        opacity: "0",
+                    },
+                },
+            },
         },
     },
     darkMode: "class",
