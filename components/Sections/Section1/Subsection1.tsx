@@ -72,7 +72,7 @@ export default function Subsection1({ errors, setErrors }: ErrorsProps) {
             <div className="flex max-md:flex-col flex-row items-center max-md:justify-start justify-between flex-wrap w-full gap-2.5">
                 <div className="flex flex-row items-center justify-start gap-2.5">
                     <LampIcon />
-                    <p className="font-title text-base font-bold text-black leading-none">
+                    <p className="font-title text-base font-bold text-black leading-none selection:!bg-black selection:!text-white">
                         Perdido em quais números primos escolher?
                     </p>
                 </div>

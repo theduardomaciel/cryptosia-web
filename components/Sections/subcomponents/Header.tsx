@@ -19,7 +19,7 @@ export default function SectionHeader({ index, amount, subsection }: Props) {
                 }
             )}
         >
-            <h3 className="text-black text-2xl font-extrabold font-title leading-none pointer-events-none inline-flex items-center justify-start flex-row gap-3">
+            <h3 className="text-black text-2xl font-extrabold font-title leading-none pointer-events-none inline-flex items-center justify-start flex-row gap-3 selection:!bg-black selection:!text-white">
                 {index != amount - 1 && `${index + 1}.`} {subsection.title}
             </h3>
             <div className="border-b w-full border-b-black rounded" />
@@ -60,7 +60,7 @@ export function SectionDescription({
     children: React.ReactNode;
 }) {
     return (
-        <p className="text-black text-lg xl:text-base font-normal font-serif leading-none xl:leading-none whitespace-pre-line w-full">
+        <p className="text-black text-lg xl:text-base font-normal font-serif leading-none xl:leading-none whitespace-pre-line w-full  selection:!bg-black selection:!text-white">
             {children}
         </p>
     );

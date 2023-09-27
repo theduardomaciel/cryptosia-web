@@ -60,7 +60,7 @@ export default function SubsectionButton({
         <div className="flex flex-row items-center justify-between w-full transition-all">
             <div
                 className={clsx(
-                    "flex items-center justify-center w-1/6 overflow-hidden ease-in-out flex-grow max-w-[0px] transition-all duration-500 motion-reduce:!transition-none",
+                    "flex items-center justify-center w-1/6 overflow-hidden ease-in-out flex-grow max-w-[0px] motion-safe:transition-all motion-safe:duration-500",
                     {
                         "!max-w-[5rem] mr-2.5 overflow-visible":
                             currentSubsection &&
@@ -70,12 +70,9 @@ export default function SubsectionButton({
                 )}
             >
                 <Button
-                    className={clsx(
-                        "flex flex-1 motion-reduce:!transition-none",
-                        {
-                            "disabled: opacity-50": !query,
-                        }
-                    )}
+                    className={clsx("flex flex-1", {
+                        "disabled: opacity-50": !query,
+                    })}
                     disabled={query?.value == 0}
                     onClick={() =>
                         query

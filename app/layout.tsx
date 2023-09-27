@@ -53,11 +53,11 @@ export default function RootLayout({
                         src="/wasm/cryptosia.js"
                         strategy="beforeInteractive"
                     />
-                    <Script>
-                        {`if (window.localStorage.getItem("reduce-motion") === "true") {
-                            document.documentElement.classList.add("reduce-motion");
+                    {/* <Script>
+                        {`if (window.localStorage.getItem("disable-typing-animation") === "true") {
+                            document.documentElement.classList.add("disable-typing-animation");
                         }`}
-                    </Script>
+                    </Script> */}
                 </body>
             </html>
         </>

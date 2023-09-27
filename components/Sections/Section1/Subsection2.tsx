@@ -32,7 +32,7 @@ export default function Subsection2({
                         }}
                         tabIndex={-1}
                     >
-                        <p className="text-black text-lg font-black font-title hover:scale-105 transition-transform">
+                        <p className="text-black text-lg font-black font-title hover:scale-105 transition-transform selection:!bg-black selection:!text-white">
                             {exponent}
                         </p>
                     </button>

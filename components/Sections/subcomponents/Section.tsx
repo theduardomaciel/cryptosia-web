@@ -32,7 +32,7 @@ export default function Section({
     return (
         <li
             className={clsx(
-                "flex flex-col xl:flex-row group aria-expanded:hover:bg-primary-200 aria-expanded:dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 w-full xl:max-w-fit xl:h-96 overflow-hidden ease-in-out flex-grow xl:transition-[max-width] xl:duration-700 motion-reduce:!transition-none",
+                "flex flex-col xl:flex-row group aria-expanded:hover:bg-primary-200 aria-expanded:dark:hover:bg-gray-100 bg-white-200 dark:bg-gray-200 w-full xl:max-w-fit xl:h-96 overflow-hidden ease-in-out flex-grow xl:motion-safe:transition-[max-width] xl:motion-safe:duration-700",
                 {
                     "xl:!max-w-[calc(100vw-24em-var(--wrapper)*2)]": isExpanded,
                     "xl:!max-w-[12rem]": !isExpanded,
@@ -43,7 +43,7 @@ export default function Section({
         >
             {/* Header */}
             <div
-                className="group-aria-expanded:cursor-pointer transition flex flex-row px-5 items-center xl:items-end justify-between xl:w-48 py-5 gap-x-3"
+                className="group-aria-expanded:cursor-pointer motion-safe:transition flex flex-row px-5 items-center xl:items-end justify-between xl:w-48 py-5 gap-x-3"
                 onClick={
                     () => router.replace(`?app=${id}`, { scroll: false })
                     /* isExpanded
@@ -62,7 +62,7 @@ export default function Section({
             <div className="flex flex-1 overflow-hidden">
                 <div
                     className={clsx(
-                        "pt-0 w-full xl:min-w-[calc(100vw-36rem-var(--wrapper)*2)] transition-[max-height,opacity] duration-700 bg-primary-100 dark:bg-primary-200 motion-reduce:!transition-none",
+                        "pt-0 w-full xl:min-w-[calc(100vw-36rem-var(--wrapper)*2)] motion-safe:transition-[max-height,opacity] motion-safe:duration-700 motion-reduce:transition-none bg-primary-100 dark:bg-primary-200",
                         {
                             "max-xl:max-h-[50rem]": isExpanded,
                             "max-xl:max-h-0": !isExpanded,

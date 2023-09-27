@@ -17,9 +17,10 @@ export default function Accessibility() {
     const wrapper = useRef(null);
 
     const router = useRouter();
-
-    const [reduceMotion, setReduceMotion] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [disableTypingAnimation, setDisableTypingAnimation] = useState(false);
+    const [reduceMotion, setReduceMotion] = useState(false);
 
     const onDismiss = useCallback(() => {
         setIsModalOpen(false);
@@ -38,8 +39,23 @@ export default function Accessibility() {
                 if (onDismiss) onDismiss();
             }
         },
-        [onDismiss, overlay, wrapper]
+        [onDismiss, overlay]
     );
+
+    const onToggleTypingAnimation = useCallback(() => {
+        //const html = document.querySelector("html") as HTMLElement;
+        //html.classList.remove("disable-typing-animation");
+
+        if (localStorage.getItem("disable-typing-animation") === "true") {
+            console.log("Ativando animação de digitação...");
+            localStorage.setItem("disable-typing-animation", "false");
+            setDisableTypingAnimation(false);
+        } else {
+            console.log("Desativando animação de digitação...");
+            localStorage.setItem("disable-typing-animation", "true");
+            setDisableTypingAnimation(true);
+        }
+    }, []);
 
     const onKeyDown = useCallback(
         (e: KeyboardEvent) => {
@@ -48,26 +64,24 @@ export default function Accessibility() {
         [onDismiss]
     );
 
-    const onReduceMotionChange = useCallback(() => {
-        document.documentElement.classList.toggle("reduce-motion");
-        window.localStorage.setItem(
-            "reduce-motion",
-            document.documentElement.classList.contains("reduce-motion")
-                ? "true"
-                : "false"
-        );
-        setReduceMotion((prev) => !prev);
-    }, []);
-
     useEffect(() => {
-        if (window.localStorage.getItem("reduce-motion") === "true") {
+        const isReduced =
+            window.matchMedia(`(prefers-reduced-motion: reduce)`).matches ===
+            true;
+
+        if (!!isReduced) {
             setReduceMotion(true);
             setIsModalOpen(true);
         } else {
             setTimeout(() => {
                 setIsModalOpen(true);
-            }, 10);
+            }, 25);
         }
+
+        const disableTypingAnimation =
+            localStorage.getItem("disable-typing-animation") === "true";
+
+        setDisableTypingAnimation(disableTypingAnimation);
 
         document.addEventListener("keydown", onKeyDown);
         return () => document.removeEventListener("keydown", onKeyDown);
@@ -76,7 +90,7 @@ export default function Accessibility() {
     return (
         <div
             className={cn(
-                "fixed flex items-center justify-center top-0 left-0 w-screen h-screen bg-black/60 transition-opacity duration-500 z-10 motion-reduce:!transition-none motion-reduce:transform-none",
+                "fixed flex items-center justify-center top-0 left-0 w-screen h-screen bg-black/60 motion-safe:transition-opacity duration-500 z-10",
                 {
                     "opacity-0": !isModalOpen && !reduceMotion,
                     "opacity-100": isModalOpen,
@@ -89,7 +103,7 @@ export default function Accessibility() {
         >
             <div
                 className={cn(
-                    "flex flex-col items-center justify-start z-20 bg-white-100 dark:bg-gray-200 rounded-md p-14 gap-12 min-h-[25rem] w-[80vw] lg:max-w-[30rem] transition-transform duration-500 motion-reduce:transform-none motion-reduce:!transition-none",
+                    "flex flex-col items-center justify-start z-20 bg-white-100 dark:bg-gray-200 rounded-md p-14 gap-12 min-h-[25rem] w-[80vw] lg:max-w-[30rem] transition-transform duration-500",
                     {
                         "translate-y-[50vh]": !isModalOpen && !reduceMotion,
                         "translate-y-0": isModalOpen,
@@ -114,17 +128,21 @@ export default function Accessibility() {
                 </div>
 
                 <div className="flex flex-row items-center justify-between flex-wrap gap-2 w-full">
-                    <span>Reduzir animações</span>
+                    <span>Remover animação de digitação</span>
                     <Switch
-                        onCheckedChange={onReduceMotionChange}
-                        checked={reduceMotion}
+                        onCheckedChange={onToggleTypingAnimation}
+                        checked={disableTypingAnimation}
                     />
                 </div>
 
+                <div className="flex flex-row items-center justify-between flex-wrap gap-2 w-full">
+                    <span>Reduzir animações</span>
+                    <Switch checked={reduceMotion} disabled />
+                </div>
+
                 <p className="text-center opacity-40">
-                    Algumas animações podem sumir somente quando a página é
-                    atualizada, ou quando a preferência é alterada nas
-                    configurações do sistema operacional.
+                    A preferência de redução de animações deve ser alterada nas
+                    configurações do seu dispositivo.
                 </p>
             </div>
         </div>

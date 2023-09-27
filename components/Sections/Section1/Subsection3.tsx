@@ -60,13 +60,13 @@ function KeyView({ keyString, icon, title }: KeyViewProps) {
         <div className="flex flex-col items-start justify-start flex-1 gap-2.5 w-full">
             <div className="flex flex-row items-center justify-start gap-2.5">
                 {icon}
-                <p className="text-black text-lg xl:text-base font-medium font-serif leading-none">
+                <p className="text-black text-lg xl:text-base font-medium font-serif leading-none selection:!bg-black selection:!text-white">
                     {title}
                 </p>
             </div>
             <div className="flex flex-row items-center justify-between gap-2.5 w-full">
                 <button
-                    className="px-6 xl:px-9 py-1 rounded-[5px] justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar w-full relative outline-dashed outline-black outline-1 hover:outline-offset-1 hover:outline-2 group/public_key"
+                    className="px-6 xl:px-9 py-1 rounded-[5px] justify-center items-center overflow-x-scroll gap-6 xl:gap-9 inline-flex hide_scrollbar w-full relative outline-dashed outline-black outline-1 hover:outline-offset-1 hover:outline-2 group/public_key selection:!bg-black selection:!text-white"
                     type="button"
                     tabIndex={-1}
                     onClick={() => {

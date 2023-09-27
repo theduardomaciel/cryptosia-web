@@ -71,18 +71,27 @@ export default function Section2() {
         textArea.scrollTop = textArea.scrollHeight;
         textArea.focus();
 
-        // Animamos o surgimento da mensagem criptografada
-        let i = 0;
-        const intervalId = setInterval(() => {
-            setMessage(encryptedMessage.slice(0, i));
-            textArea.setSelectionRange(i, i);
-            i++;
+        const isAnimationDisabled =
+            window.localStorage.getItem("disable-typing-animation") === "true";
+        console.log("isAnimationDisabled: " + isAnimationDisabled);
 
-            if (i > encryptedMessage.length) {
-                clearInterval(intervalId);
-                setHasEncryptedMessage(true);
-            }
-        }, velocity);
+        if (isAnimationDisabled) {
+            setMessage(encryptedMessage);
+            setHasEncryptedMessage(true);
+        } else {
+            // Animamos o surgimento da mensagem criptografada
+            let i = 0;
+            const intervalId = setInterval(() => {
+                setMessage(encryptedMessage.slice(0, i));
+                textArea.setSelectionRange(i, i);
+                i++;
+
+                if (i > encryptedMessage.length) {
+                    clearInterval(intervalId);
+                    setHasEncryptedMessage(true);
+                }
+            }, velocity);
+        }
 
         /* let i = message.length;
         const wipingInterval = setInterval(() => {
@@ -104,6 +113,7 @@ export default function Section2() {
             <div className="flex w-full flex-col items-start gap-4">
                 <InputRoot className="w-full">
                     <InputHeader
+                        className="selection:!bg-black selection:!text-white"
                         icon={
                             <PublicKeyIcon
                                 className="w-5 h-5"

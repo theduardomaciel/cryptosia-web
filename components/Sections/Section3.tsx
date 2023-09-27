@@ -71,18 +71,26 @@ export default function Section3() {
         textArea.scrollTop = textArea.scrollHeight;
         textArea.focus();
 
-        // Animamos o surgimento da mensagem descriptografada
-        let i = 0;
-        const intervalId = setInterval(() => {
-            setMessage(decryptedMessage.slice(0, i));
-            textArea.setSelectionRange(i, i);
-            i++;
+        const isAnimationDisabled =
+            window.localStorage.getItem("disable-typing-animation") === "true";
 
-            if (i > decryptedMessage.length) {
-                clearInterval(intervalId);
-                setHasDecryptedMessage(true);
-            }
-        }, velocity);
+        if (isAnimationDisabled) {
+            setMessage(decryptedMessage);
+            setHasDecryptedMessage(true);
+        } else {
+            // Animamos o surgimento da mensagem descriptografada
+            let i = 0;
+            const intervalId = setInterval(() => {
+                setMessage(decryptedMessage.slice(0, i));
+                textArea.setSelectionRange(i, i);
+                i++;
+
+                if (i > decryptedMessage.length) {
+                    clearInterval(intervalId);
+                    setHasDecryptedMessage(true);
+                }
+            }, velocity);
+        }
     }, [privateKey, message]);
 
     const keySplit = useMemo(() => privateKey.split(" "), [privateKey]);
@@ -91,7 +99,12 @@ export default function Section3() {
         <SectionWrapper>
             <div className="flex w-full flex-col items-start gap-4">
                 <InputRoot className="w-full">
-                    <InputHeader icon={<EncryptedIcon color="black" />}>
+                    <InputHeader
+                        className="selection:!bg-black selection:!text-white"
+                        icon={
+                            <EncryptedIcon className="w-5 h-5" color="black" />
+                        }
+                    >
                         Chave privada
                     </InputHeader>
                     <Input

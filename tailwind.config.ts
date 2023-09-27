@@ -40,8 +40,12 @@ const config: Config = {
             },
             animation: {
                 flicker: "flicker 0.5s infinite",
-                primary: "primary 30s linear infinite",
-                secondary: "secondary 30s linear infinite",
+                primary: "primary 45s linear infinite",
+                secondary: "secondary 45s linear infinite",
+                primaryY: "primaryY 25s linear infinite",
+                secondaryY: "secondaryY 25s linear infinite",
+                primaryY_inverse: "primaryY_inverse 25s linear infinite",
+                secondaryY_inverse: "secondaryY_inverse 25s linear infinite",
             },
             keyframes: {
                 flicker: {
@@ -69,6 +73,38 @@ const config: Config = {
                     },
                     to: {
                         transform: "translateX(0vw)",
+                    },
+                },
+                primaryY: {
+                    from: {
+                        transform: "translateY(0%)",
+                    },
+                    to: {
+                        transform: "translateY(-100%)",
+                    },
+                },
+                secondaryY: {
+                    from: {
+                        transform: "translateY(100%)",
+                    },
+                    to: {
+                        transform: "translateY(0%)",
+                    },
+                },
+                primaryY_inverse: {
+                    from: {
+                        transform: "translateY(0%)",
+                    },
+                    to: {
+                        transform: "translateY(100%)",
+                    },
+                },
+                secondaryY_inverse: {
+                    from: {
+                        transform: "translateY(-100%)",
+                    },
+                    to: {
+                        transform: "translateY(0%)",
                     },
                 },
             },

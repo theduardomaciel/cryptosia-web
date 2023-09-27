@@ -25,7 +25,7 @@ export default function Home() {
     return (
         <Fragment>
             <main
-                className="flex w-screen flex-col items-center justify-start px-[var(--wrapper)]"
+                className="flex w-screen flex-col items-center justify-start px-[var(--wrapper)] overflow-x-hidden"
                 style={{
                     backgroundSize: "40px 40px",
                     backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
@@ -33,7 +33,7 @@ export default function Home() {
                 }}
             >
                 <Header />
-                <div className="flex w-full flex-col items-center justify-start mt-28 gap-12">
+                <div className="flex w-full flex-col items-center justify-start mt-24 gap-12">
                     <Link
                         href={"https://forms.gle/am8xJtjGLD2Efi6b9"}
                         target="_blank"
@@ -65,7 +65,7 @@ export default function Home() {
                     </p>
                     <div className="flex flex-col lg:flex-row items-center justify-start gap-9">
                         <Link
-                            className="w-full lg:w-fit px-10 py-4 bg-primary-100 border-primary-200 dark:bg-primary-200 rounded-[50px] border border-opacity-10 justify-center items-center gap-2.5 inline-flex hover:brightness-105 transition"
+                            className="w-full lg:w-fit px-10 py-4 bg-primary-100 border-primary-200 dark:bg-primary-200 rounded-[50px] border border-opacity-10 justify-center items-center gap-2.5 inline-flex hover:brightness-105 transition hover:outline-primary-200"
                             href={`/#app`}
                         >
                             <p className="text-center text-neutral-900 text-md font-bold">
@@ -91,10 +91,7 @@ export default function Home() {
                     </div>
                 </div>
                 <ul className="flex flex-col xl:flex-row w-full items-center justify-center my-28 relative">
-                    <div
-                        id="animate-primary"
-                        className="flex flex-col xl:flex-row items-start justify-start w-full gap-14 xl:animate-primary xl:motion-reduce:animate-none"
-                    >
+                    <div className="flex flex-col xl:flex-row items-start justify-start w-full gap-14 xl:animate-primary xl:motion-reduce:animate-none">
                         <Cards />
                     </div>
                     <div className="hidden xl:flex flex-col xl:flex-row items-start justify-start gap-14 w-full absolute top-[0%] left-0 animate-secondary xl:motion-reduce:animate-none">
@@ -114,7 +111,7 @@ function Cards() {
             <Card
                 icon={<ComputerIcon />}
                 title="Tudo em um só lugar"
-                description="Gere uma chave pública, criptografe e descriptografe em um só local, facilitando seu uso."
+                description="Gere uma chave pública, criptografe e descriptografe em um só local, sem enrolações."
             />
             <Card
                 icon={<CryptographyIcon />}

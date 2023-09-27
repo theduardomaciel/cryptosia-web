@@ -56,7 +56,7 @@ export default function PrimesGenerator({
         setIsPopoverOpen(false);
         console.log("Gerado com sucesso!" + p + " " + q);
         generated(p, q);
-    }, [min, max]);
+    }, [min, max, generated]);
 
     return (
         <Popover

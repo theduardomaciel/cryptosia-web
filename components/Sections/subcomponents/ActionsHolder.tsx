@@ -13,41 +13,44 @@ interface Props {
 export default function ActionsHolder({ isVisible, textareaId }: Props) {
     const id = useId();
 
-    const animateButton = useCallback((buttonId: string) => {
-        const button = document.getElementById(`${buttonId}-message_${id}`);
+    const animateButton = useCallback(
+        (buttonId: string) => {
+            const button = document.getElementById(`${buttonId}-message_${id}`);
 
-        if (button) {
-            const buttonIcon = document.getElementById(
-                `${buttonId}-message-icon_${id}`
-            );
+            if (button) {
+                const buttonIcon = document.getElementById(
+                    `${buttonId}-message-icon_${id}`
+                );
 
-            const checkIcon = document.getElementById(
-                `${buttonId}-message-check-icon_${id}`
-            );
-
-            if (buttonIcon && checkIcon) {
-                buttonIcon.classList.add("scale-0");
-                buttonIcon.classList.remove("scale-100");
-
-                checkIcon.classList.add("scale-100");
-                checkIcon.classList.remove("scale-0");
-            }
-
-            button.style.maxWidth = "100%";
-
-            setTimeout(() => {
-                button.style.maxWidth = "2.5rem";
+                const checkIcon = document.getElementById(
+                    `${buttonId}-message-check-icon_${id}`
+                );
 
                 if (buttonIcon && checkIcon) {
-                    buttonIcon.classList.add("scale-100");
-                    buttonIcon.classList.remove("scale-0");
+                    buttonIcon.classList.add("scale-0");
+                    buttonIcon.classList.remove("scale-100");
 
-                    checkIcon.classList.add("scale-0");
-                    checkIcon.classList.remove("scale-100");
+                    checkIcon.classList.add("scale-100");
+                    checkIcon.classList.remove("scale-0");
                 }
-            }, 1000);
-        }
-    }, []);
+
+                button.style.maxWidth = "100%";
+
+                setTimeout(() => {
+                    button.style.maxWidth = "2.5rem";
+
+                    if (buttonIcon && checkIcon) {
+                        buttonIcon.classList.add("scale-100");
+                        buttonIcon.classList.remove("scale-0");
+
+                        checkIcon.classList.add("scale-0");
+                        checkIcon.classList.remove("scale-100");
+                    }
+                }, 1000);
+            }
+        },
+        [id]
+    );
 
     return (
         <div
@@ -62,7 +65,7 @@ export default function ActionsHolder({ isVisible, textareaId }: Props) {
                 tabIndex={isVisible ? 0 : -1}
                 id={`copy-message_${id}`}
                 className={cn(
-                    "flex flex-row items-center justify-start max-w-[2.5rem] h-10 outline-0 hover:outline-0 rounded-tr-none rounded-br-none rounded-bl-none overflow-x-hidden overflow-y-hidden transition-all duration-500 pl-3 motion-reduce:!transition-none"
+                    "flex flex-row items-center justify-start max-w-[2.5rem] h-10 outline-0 hover:outline-0 rounded-tr-none rounded-br-none rounded-bl-none overflow-x-hidden overflow-y-hidden motion-safe:transition-all motion-reduce:transition-none duration-500 pl-3"
                 )}
                 onClick={() => {
                     const textarea = document.getElementById(
