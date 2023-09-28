@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/Button";
+
 import Logo from "@/public/Logo";
-import Link from "next/link";
 
 export default function NotFound() {
     return (
@@ -34,13 +35,13 @@ export default function NotFound() {
                         </span>{" "}
                         e aproveite a criptografia RSA!
                     </p>
-                    <Link href={`/`} className="max-lg:w-full">
-                        <Button className="bg-white text-black hover:bg-black hover:text-white px-12 py-2.5">
+                    <a href={`/`} className="max-lg:w-full">
+                        <Button className="bg-[var(--neutral)] text-white dark:text-black dark:hover:bg-black hover:bg-white dark:hover:text-white hover:outline-black hover:text-black dark:hover:outline-white px-12 py-2.5">
                             Voltar ao início
                         </Button>
-                    </Link>
+                    </a>
                 </div>
-                <p className="absolute top-0 left-0 bg-gradient-to-b lg:bg-gradient-to-r from-[#D9D9D9] dark:from-gray-200/50 bg-clip-text text-transparent -z-50 w-full lg:w-[50vw] h-full select-none pointer-events-none">
+                <p className="absolute top-0 left-0 bg-gradient-to-b lg:bg-gradient-to-r from-yellow-200/30 dark:from-gray-200/50 bg-clip-text text-transparent -z-50 w-full lg:w-[50vw] h-full select-none pointer-events-none">
                     {PATTERN}
                 </p>
             </div>

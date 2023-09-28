@@ -40,12 +40,12 @@ const config: Config = {
             },
             animation: {
                 flicker: "flicker 0.5s infinite",
-                primary: "primary 45s linear infinite",
-                secondary: "secondary 45s linear infinite",
-                primaryY: "primaryY 25s linear infinite",
-                secondaryY: "secondaryY 25s linear infinite",
-                primaryY_inverse: "primaryY_inverse 25s linear infinite",
-                secondaryY_inverse: "secondaryY_inverse 25s linear infinite",
+                primary: "primary 60s linear infinite",
+                secondary: "secondary 60s linear infinite",
+                primaryY: "primaryY 120s linear infinite",
+                secondaryY: "secondaryY 120s linear infinite",
+                primaryY_inverse: "primaryY_inverse 120s linear infinite",
+                secondaryY_inverse: "secondaryY_inverse 120s linear infinite",
             },
             keyframes: {
                 flicker: {
