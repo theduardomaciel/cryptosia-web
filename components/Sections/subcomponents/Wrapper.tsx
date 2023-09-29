@@ -11,12 +11,13 @@ import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 
 interface Props {
+    className?: string;
     children?: ReactNode;
 }
 
-export default function SectionWrapper({ children }: Props) {
+export default function SectionWrapper({ className, children }: Props) {
     return (
-        <div className="flex h-full w-full flex-col items-start justify-start py-6 px-6 gap-4 xl:justify-center xl:px-10">
+        <div className={cn("flex h-full w-full flex-col items-start justify-start py-6 px-6 gap-4 xl:justify-center xl:px-10", className)}>
             {children}
         </div>
     );
@@ -95,7 +96,7 @@ export function MultisectionsSectionWrapper({
                         : 1,
                 }}
                 tabIndex={100}
-                className={cn("bg-black text-white", {
+                className={cn("bg-black text-white w-full", {
                     "bg-transparent text-black hover:outline-black hover:outline-[1px] hover:bg-transparent":
                         currentSubsection == lastSubsection,
                 })}

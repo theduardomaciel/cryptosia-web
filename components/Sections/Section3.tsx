@@ -161,6 +161,7 @@ export default function Section3() {
                     keySplit.length < 2 ||
                     (keySplit[1] !== undefined && keySplit[1].length < 1)
                 }
+                className="w-full"
                 onClick={decryptographMessage}
             >
                 Descriptografar texto

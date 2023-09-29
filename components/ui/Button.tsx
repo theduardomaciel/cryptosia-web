@@ -15,7 +15,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         return (
             <button
                 className={cn(
-                    "p-2 bg-black hover:bg-bg-01 rounded-md items-center justify-center gap-2.5 inline-flex font-title w-full transition-colors",
+                    "p-2 bg-black hover:bg-bg-01 rounded-md items-center justify-center gap-2.5 inline-flex font-title transition-colors",
                     "outline outline-3 outline-transparent hover:outline-white transition-all duration-75 ",
                     "text-white text-base font-extrabold font-title",
                     "disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed disabled:select-none",
