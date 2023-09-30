@@ -20,17 +20,66 @@ import SaveIcon from "@/public/icons/Save";
 // Interfaces
 import type { Data } from ".";
 
-export default function Subsection3({
-	data,
-}: {
+interface Props {
 	data: Record<keyof Data, string>;
-}) {
+}
+
+export default function Subsection3({ data }: Props) {
 	const keysId = useId();
 	const [hasSavedKey, setHasSavedKeys] = useState(false);
 
+	const saveKeys = () => {
+		if (hasSavedKey) {
+			const keysString = window.localStorage.getItem("saved_keys");
+
+			if (!keysString)
+				return console.error("Não há chaves salvas no localStorage");
+
+			const keys = JSON.parse(keysString);
+
+			window.localStorage.setItem(
+				"saved_keys",
+				JSON.stringify({
+					...keys,
+					[keysId]: undefined,
+				})
+			);
+			setHasSavedKeys(false);
+		} else {
+			const keysString = window.localStorage.getItem("saved_keys");
+
+			if (!keysString) {
+				window.localStorage.setItem(
+					"saved_keys",
+					JSON.stringify({
+						[keysId]: {
+							publicKey: data?.publicKey,
+							privateKey: data?.privateKey,
+						},
+					})
+				);
+			} else {
+				const keys = JSON.parse(keysString);
+
+				window.localStorage.setItem(
+					"saved_keys",
+					JSON.stringify({
+						...keys,
+						[keysId]: {
+							publicKey: data?.publicKey,
+							privateKey: data?.privateKey,
+						},
+					})
+				);
+			}
+
+			setHasSavedKeys(true);
+		}
+	};
+
 	return (
 		<div className="flex flex-col w-full h-full items-center justify-center gap-4">
-			<div className="flex flex-row items-center justify-between gap-2.5 w-full">
+			<div className="flex flex-col lg:flex-row items-center justify-between gap-2.5 w-full">
 				<div
 					className={
 						"flex bg-black rounded-md px-4 py-3 xl:py-2 w-full overflow-hidden"
@@ -79,38 +128,8 @@ export default function Subsection3({
 				</div>
 				<Button
 					type="button"
-					className="relative"
-					onClick={() => {
-						if (hasSavedKey) {
-							const keysString = window.localStorage.getItem(
-								"saved_keys"
-							);
-
-							if (!keysString)
-								return console.error(
-									"Não há chaves salvas no localStorage"
-								);
-
-							const keys = JSON.parse(keysString);
-
-							window.localStorage.setItem("saved_keys", JSON.stringify({
-								...keys,
-								[keysId]: undefined
-							}))
-							setHasSavedKeys(false);
-						} else {
-							window.localStorage.setItem(
-								"saved_keys",
-								JSON.stringify({
-									[keysId]: {
-										publicKey: data?.publicKey,
-										privateKey: data?.privateKey,
-									},
-								})
-							);
-							setHasSavedKeys(true);
-						}
-					}}
+					className="relative max-lg:w-full"
+					onClick={saveKeys}
 				>
 					<SaveIcon
 						className={cn("scale-100 transition-transform", {

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 // Components
 import SectionWrapper from "./subcomponents/Wrapper";
 import ActionsHolder from "./subcomponents/ActionsHolder";
+import SavedKeys from "./subcomponents/SavedKeys";
 import { Input, InputHeader, InputRoot } from "../ui/Input";
 import { Button } from "../ui/Button";
 
@@ -12,7 +13,6 @@ import { PublicKeyIcon } from "@/public/icons/Sections";
 
 // Utils
 import type { WasmFunctions, WasmMethods } from "@/lib/@types";
-import SavedKeys from "./subcomponents/SavedKeys";
 
 export default function Section2() {
 	const [publicKey, setPublicKey] = useState<string>("");
@@ -126,6 +126,7 @@ export default function Section2() {
 					</InputHeader>
 					<div className="flex flex-row items-center justify-between w-full gap-2.5">
 						<Input
+							id="public-key"
 							placeholder="[insira aqui a chave pública] (e, n)"
 							className="text-center font-bold"
 							style={{
@@ -153,12 +154,7 @@ export default function Section2() {
 								setPublicKey(e.target.value);
 							}}
 						/>
-						<Button>
-                            <PublicKeyIcon
-								className="w-6 h-6"
-								color={"white"}
-							/>
-						</Button>
+						<SavedKeys type="encrypt" setKey={setPublicKey} />
 					</div>
 				</InputRoot>
 				{/* <div className="flex flex-col items-center justify-center lg:flex-row lg:justify-between w-full gap-2.5">
@@ -206,7 +202,6 @@ export default function Section2() {
 			>
 				Criptografar texto
 			</Button>
-            <SavedKeys />
 		</SectionWrapper>
 	);
 }
