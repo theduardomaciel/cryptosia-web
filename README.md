@@ -33,14 +33,14 @@ Utilize o cryptosia para gerar chaves pública e privada em sintonia, garantindo
 -   [ ] C
 -->
 
-| Frontend  | Backend |
-| ------------------ | ------------- |
-| HTML  | WebAssembly  |
-| CSS  | Emscripten  |
-| TypeScript  | C  |
-| Next.js  |   |
-| TailwindCSS  |   |
-| Radix & Radix Icons  |   |
+| Frontend            | Backend     |
+| ------------------- | ----------- |
+| HTML                | WebAssembly |
+| CSS                 | Emscripten  |
+| TypeScript          | C           |
+| Next.js             |             |
+| TailwindCSS         |             |
+| Radix & Radix Icons |             |
 
 <br />
 
@@ -85,12 +85,12 @@ Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navega
 
 ## 👥 Grupo
 
--   [ ] [Eduardo Maciel](https://github.com/theduardomaciel) - Frontend e Backend
--   [ ] [David Enéas](https://github.com/EneasDavid) - Backend
--   [ ] Maria Emily Nayla Gomes da Silva - Fundamentação teórica matemática e Apresentações
--   [ ] Mariáh Lins Sena - Redição de texto
--   [ ] Pedro Gabriel Medeiros de Lima - Redição de texto
--   [ ] Victória Júllya Cabral da Silva - Redição de texto
+-   [ ] [Eduardo Maciel Alexandre](https://github.com/theduardomaciel) - Frontend e backend
+-   [ ] [David Enéas Ferreira](https://github.com/EneasDavid) - Backend
+-   [ ] Maria Emily Nayla Gomes da Silva - Fundamentação teórica matemática e apresentações
+-   [ ] Mariáh Lins Sena - Apresentações e redição de texto
+-   [ ] Pedro Gabriel Medeiros de Lima - Apresentações e redição de texto
+-   [ ] Victória Júllya Cabral da Silva - Apresentações e redição de texto
 
 <br />
 

@@ -13,7 +13,7 @@ import {
 	DownloadIcon,
 	TrashIcon,
 } from "@radix-ui/react-icons";
-import { PublicKeyIcon } from "@/public/icons/Sections";
+import { PublicKeyIcon } from "@/public/icons/SectionsIcons";
 import EncryptedIcon from "@/public/icons/Encrypted";
 import SaveIcon from "@/public/icons/Save";
 

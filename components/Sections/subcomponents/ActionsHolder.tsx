@@ -65,7 +65,7 @@ export default function ActionsHolder({ isVisible, textareaId }: Props) {
 				tabIndex={isVisible ? 0 : -1}
 				id={`copy-message_${id}`}
 				className={cn(
-					"flex flex-row items-center justify-start max-w-[2.5rem] h-10 outline-0 hover:outline-0 rounded-tr-none rounded-br-none rounded-bl-none overflow-x-hidden overflow-y-hidden motion-safe:transition-all motion-reduce:transition-none duration-500 pl-3 hover:bg-bg-01"
+					"flex flex-row items-center justify-start max-w-[2.5rem] h-10 outline-0 hover:outline-0 rounded-tr-none rounded-br-none rounded-bl-none overflow-x-hidden overflow-y-hidden motion-safe:transition-all motion-reduce:transition-none motion-safe:duration-500 pl-3 hover:bg-bg-01"
 				)}
 				onClick={() => {
 					const textarea = document.getElementById(

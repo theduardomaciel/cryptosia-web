@@ -1,0 +1,27 @@
+{
+	"name": "cryptosia",
+	"short_name": "cryptosia",
+	"icons": [
+		{
+			"src": "/icons/favicons/android-chrome-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/icons/favicons/android-chrome-384x384.png",
+			"sizes": "384x384",
+			"type": "image/png"
+		},
+		{
+			"src": "/icons/favicons/icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"theme_color": "#EED79C",
+	"background_color": "#121212",
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "portrait"
+}

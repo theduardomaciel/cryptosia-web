@@ -9,7 +9,7 @@ import { Input, InputHeader, InputRoot } from "../ui/Input";
 import { Button } from "../ui/Button";
 
 // Icons
-import { PublicKeyIcon } from "@/public/icons/Sections";
+import { PublicKeyIcon } from "@/public/icons/SectionsIcons";
 
 // Utils
 import type { WasmFunctions, WasmMethods } from "@/lib/@types";

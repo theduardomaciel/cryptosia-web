@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 
 // Icons
-import { PublicKeyIcon } from "@/public/icons/Sections";
+import { PublicKeyIcon } from "@/public/icons/SectionsIcons";
 import { TrashIcon } from "@radix-ui/react-icons";
 import EncryptedIcon from "@/public/icons/Encrypted";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -103,6 +103,7 @@ export default function SavedKeys({ type, setKey }: Props) {
 								type={type}
 								publicKey={keys[key].publicKey}
 								privateKey={keys[key].privateKey}
+								setKeys={setKeys}
 							/>
 						))
 					) : (
@@ -134,9 +135,16 @@ interface KeyHolderProps {
 	type: "encrypt" | "decrypt";
 	publicKey: string;
 	privateKey: string;
+	setKeys: React.Dispatch<React.SetStateAction<Keys>>;
 }
 
-function KeyHolder({ publicKey, privateKey, id, type }: KeyHolderProps) {
+function KeyHolder({
+	publicKey,
+	privateKey,
+	id,
+	type,
+	setKeys,
+}: KeyHolderProps) {
 	const router = useRouter();
 	const [isHidden, setIsHidden] = useState<boolean>(true);
 
@@ -165,6 +173,11 @@ function KeyHolder({ publicKey, privateKey, id, type }: KeyHolderProps) {
 
 		setTimeout(() => {
 			element.style.display = "none";
+			setKeys((prev) => {
+				const newKeys = { ...prev };
+				delete newKeys[id];
+				return newKeys;
+			});
 		}, 300);
 	}, [id]);
 
