@@ -42,7 +42,9 @@ export default function Section3() {
 	const decryptographMessage = useCallback(() => {
 		const [d_value, n_value] = privateKey.split(" ");
 
-		const messagePointer = WASM.current?.stringToNewUTF8(message);
+		const messagePointer = WASM.current?.stringToNewUTF8(
+			message.replaceAll(" ", " ")
+		);
 		const d = WASM.current?.stringToNewUTF8(d_value);
 		const n = WASM.current?.stringToNewUTF8(n_value);
 

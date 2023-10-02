@@ -85,7 +85,7 @@ export default function SavedKeys({ type, setKey }: Props) {
 			</Button>
 			<div
 				id={`saved-keys_${type}`}
-				className="absolute top-0 left-0 w-full h-full hidden flex-col items-center justify-center gap-5 z-50 motion-safe:transition-[transform, opacity] motion-reduce:transition-none duration-300 py-6 px-5 md:px-10 bg-primary-100 dark:bg-primary-200 translate-x-0"
+				className="absolute top-0 left-0 w-full h-full hidden flex-col items-center justify-start gap-5 z-50 motion-safe:transition-[transform, opacity] motion-reduce:transition-none duration-300 py-6 px-5 md:px-10 bg-primary-100 dark:bg-primary-200 translate-x-0 overflow-y-auto"
 			>
 				<div className="flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-4">
 					<PublicKeyIcon className="w-8 h-8" color="black" />
@@ -94,7 +94,15 @@ export default function SavedKeys({ type, setKey }: Props) {
 					</h3>
 				</div>
 
-				<ul className="flex flex-col items-center justify-start gap-3 h-full w-full">
+				<ul
+					className="flex flex-col items-center gap-3 w-full"
+					style={{
+						justifyContent:
+							Object.keys(keys).length > 0
+								? "flex-start"
+								: "center",
+					}}
+				>
 					{Object.keys(keys).length > 0 ? (
 						Object.keys(keys).map((key) => (
 							<KeyHolder
@@ -195,12 +203,12 @@ function KeyHolder({
 		<li
 			id={id}
 			key={id}
-			className="flex flex-col md:flex-row items-center justify-between gap-2 w-full motion-safe:transition-[max-height,opacity,transform] motion-reduce:transition-none translate-x-0 duration-300 overflow-hidden max-h-[25rem] opacity-100 p-1"
+			className="flex flex-col md:flex-row items-center justify-between gap-2 w-full motion-safe:transition-[max-height,opacity,transform] motion-reduce:transition-none translate-x-0 duration-300 overflow-hidden max-h-[100%] opacity-100 p-1 h-full"
 		>
 			<button
 				type="button"
 				onClick={onSelect}
-				className="flex flex-col md:flex-row max-lg:w-full items-center justify-start lg:justify-center gap-2.5 px-4 py-2 rounded-md font-title text-base font-black bg-black text-white hover:bg-transparent border border-black hover:text-black flex-1 motion-safe:transition-colors motion-reduce:transition-none duration-100"
+				className="flex flex-col md:flex-row max-lg:w-full items-center justify-start lg:justify-center gap-2.5 px-4 py-2 rounded-md font-title text-base font-black bg-black text-white hover:bg-transparent border border-black hover:text-black flex-1 motion-safe:transition-colors motion-reduce:transition-none duration-150"
 			>
 				<div className="flex flex-row items-center justify-start w-full lg:justify-center gap-2.5 cursor-pointer overflow-hidden">
 					<PublicKeyIcon className="w-6 h-6 min-w-[1.5rem]" />
