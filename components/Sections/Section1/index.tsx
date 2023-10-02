@@ -111,19 +111,14 @@ export default function Section1() {
 
 		console.log("Totiente: " + totient);
 
-		/* if (p_pointer && q_pointer) {
-			WASM.current?._free(p_pointer);
-			WASM.current?._free(q_pointer);
-		} */
-
-		if (totient == -1) {
+		if (totient == "-1") {
 			setErrors((errors) => ({
 				...errors,
 				p: "O número inserido é muito grande para nossa capacidade :(",
 			}));
 		}
 
-		if (totient == -2) {
+		if (totient == "-2") {
 			setErrors((errors) => ({
 				...errors,
 				general:
@@ -131,21 +126,21 @@ export default function Section1() {
 			}));
 		}
 
-		if (totient == -3) {
+		if (totient == "-3") {
 			setErrors((errors) => ({
 				...errors,
 				p: "O número inserido não é primo",
 			}));
 		}
 
-		if (totient == -4) {
+		if (totient == "-4") {
 			setErrors((errors) => ({
 				...errors,
 				q: "O número inserido não é primo",
 			}));
 		}
 
-		if (totient == -5) {
+		if (totient == "-5") {
 			setErrors((errors) => ({
 				...errors,
 				p: "O número inserido não é primo",
@@ -157,15 +152,6 @@ export default function Section1() {
 		}
 
 		if (totient < 0) return false;
-
-		/* const exponents = Array.from(
-            { length: EXPONENTS_AMOUNT },
-            (_, i) =>
-                WASM.current?._publicKey_e(
-                    totient,
-                    i + 1
-                ) as number
-        ); */
 
 		const exponents = WASM.current.ccall(
 			"publicKey_e",
@@ -251,7 +237,7 @@ export default function Section1() {
 		console.log("Expoente:", values.exponent);
 		console.log("Chave privada:", privateKey);
 
-		// d ou e | d = privada, e = pública e em seguida o n
+		// d = privada, e = pública | n
 		const publicKey = `${values.exponent} ${n}`;
 		const privateKeyString = `${privateKey} ${n}`;
 
