@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 // Subcomponents
-import Section from "./subcomponents/Section";
+import Section from "./subcomponents/layout/Section";
 
 import Section1 from "./Section1";
 import Section2 from "./Section2";

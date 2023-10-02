@@ -12,6 +12,9 @@
 
 Utilize o cryptosia para gerar chaves pública e privada em sintonia, garantindo segurança simplificada de mensagens simples por meio da Criptografia RSA.
 
+> [!NOTE]
+> O backend do projeto está disponível em: [https://github.com/theduardomaciel/cc-md/tree/master/projeto](https://github.com/theduardomaciel/cc-md/tree/master/projeto)
+
 <br />
 
 ## ✨ Tecnologias

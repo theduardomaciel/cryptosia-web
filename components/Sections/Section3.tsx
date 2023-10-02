@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // Components
-import SectionWrapper from "./subcomponents/Wrapper";
+import SectionWrapper from "./subcomponents/layout/Wrapper";
 import ActionsHolder from "./subcomponents/ActionsHolder";
 import SavedKeys from "./subcomponents/SavedKeys";
 import { Input, InputHeader, InputRoot } from "../ui/Input";
@@ -64,7 +64,7 @@ export default function Section3() {
 		setMessage("");
 		setHasDecryptedMessage(false);
 
-		const velocity = decryptedMessage.length / 1000;
+		const velocity = 10;
 
 		const textArea = document.getElementById(
 			"decrypted-message"
@@ -152,7 +152,14 @@ export default function Section3() {
 						"flex flex-1 border-2 border-dashed border-black rounded-md p-4 resize-none bg-transparent text-black placeholder-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 max-xl:min-h-[15rem] selection:!bg-black selection:!text-white"
 					}
 					value={message}
-					onChange={(e) => setMessage(e.target.value)}
+					onChange={(e) => {
+						if (hasDecryptedMessage) {
+							setMessage("");
+							setHasDecryptedMessage(false);
+						} else {
+							setMessage(e.target.value);
+						}
+					}}
 				/>
 				<ActionsHolder
 					isVisible={hasDecryptedMessage}

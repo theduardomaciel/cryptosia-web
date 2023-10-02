@@ -12,7 +12,7 @@ export default function Subsection2({
 	setErrors,
 	exponents,
 }: ErrorsProps & {
-	exponents: number[];
+	exponents: string[];
 }) {
 	return (
 		<div className="flex flex-col gap-2.5 w-full h-full items-center justify-center">

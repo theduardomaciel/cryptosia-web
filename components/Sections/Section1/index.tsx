@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { MultisectionsSectionWrapper } from "../subcomponents/Wrapper";
+import { MultisectionsSectionWrapper } from "../subcomponents/layout/Wrapper";
 
 // Subsections
-import type { WasmFunctions } from "@/lib/@types";
+import type { WasmFunctions, WasmMethods } from "@/lib/@types";
 import Subsection1 from "./Subsection1";
 import Subsection2 from "./Subsection2";
 import Subsection3 from "./Subsection3";
@@ -14,9 +14,9 @@ import Subsection3 from "./Subsection3";
 // Utils
 
 interface FormValues {
-	p: number;
-	q: number;
-	exponent: number;
+	p: string;
+	q: string;
+	exponent: string;
 }
 
 export interface Data extends FormValues {
@@ -41,13 +41,13 @@ const EXPONENTS_AMOUNT = 10; // quantidade de expoentes a serem gerados
 
 export default function Section1() {
 	const [errors, setErrors] = useState<FormErrors>({});
-	const [exponents, setExponents] = useState<number[]>([]);
+	const [exponents, setExponents] = useState<string[]>([]);
 	const [data, setData] = useState<Record<keyof Data, string>>(
 		{} as Record<keyof Data, string>
 	);
 
 	const router = useRouter();
-	const WASM = useRef<WasmFunctions | null>(null);
+	const WASM = useRef<(WasmFunctions & WasmMethods) | null>(null);
 
 	useEffect(() => {
 		console.log("Verificando WASM...");
@@ -56,34 +56,28 @@ export default function Section1() {
 			WASM.current === null
 		) {
 			console.log("Carregando WASM...");
-			(window as any).CRYPTOSIA().then((wasm: WasmFunctions) => {
-				console.log("WASM carregou!");
-				WASM.current = wasm;
-				// ...
-			});
+			(window as any)
+				.CRYPTOSIA()
+				.then((wasm: WasmFunctions & WasmMethods) => {
+					console.log("WASM carregou!");
+					WASM.current = wasm;
+					// ...
+				});
 		}
 	}, []);
 
 	const section1OnVerify = () => {
 		if (!WASM.current) return false;
 
-		const p = parseInt(
+		const p =
 			document
 				.getElementById("public-key-section")
-				?.querySelector<HTMLInputElement>('[name="p"]')?.value || ""
-		);
+				?.querySelector<HTMLInputElement>('[name="p"]')?.value || "";
 
-		const q = parseInt(
+		const q =
 			document
 				.getElementById("public-key-section")
-				?.querySelector<HTMLInputElement>('[name="q"]')?.value || ""
-		);
-
-		/* document.querySelector<HTMLInputElement>(
-            "#q"
-        )?.value */
-
-		console.log(p, q);
+				?.querySelector<HTMLInputElement>('[name="q"]')?.value || "";
 
 		if (p === q) {
 			setErrors((errors) => ({
@@ -108,9 +102,19 @@ export default function Section1() {
 
 		if (p === q || !p || !q) return false;
 
-		const totient = WASM.current?._publicKey_totient(p!, q!);
+		const totient = WASM.current?.ccall(
+			"publicKey_totient",
+			"string",
+			["string", "string"],
+			[p, q]
+		);
 
 		console.log("Totiente: " + totient);
+
+		/* if (p_pointer && q_pointer) {
+			WASM.current?._free(p_pointer);
+			WASM.current?._free(q_pointer);
+		} */
 
 		if (totient == -1) {
 			setErrors((errors) => ({
@@ -163,17 +167,14 @@ export default function Section1() {
                 ) as number
         ); */
 
-		let exponents: number[] = [];
-		for (let i = 0; i < EXPONENTS_AMOUNT; i++) {
-			const exponent = WASM.current?._publicKey_e(
-				totient,
-				exponents[i - 1] || -1
-			) as number;
-			exponents.push(exponent);
-		}
-		console.log(exponents);
+		const exponents = WASM.current.ccall(
+			"publicKey_e",
+			"string",
+			["string", "number"],
+			[totient, EXPONENTS_AMOUNT]
+		) as string;
 
-		setExponents(exponents);
+		setExponents(exponents.split(" "));
 
 		return true;
 	};
@@ -181,7 +182,13 @@ export default function Section1() {
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		if (!WASM.current) return;
+		if (!WASM.current) {
+			setErrors((errors) => ({
+				...errors,
+				general: "Ocorreu um erro ao gerar sua chave pública :(",
+			}));
+			return;
+		}
 		if (errors.p || errors.q || errors.general) return;
 
 		const formData = new FormData(event.currentTarget);
@@ -190,17 +197,40 @@ export default function Section1() {
 		const values = Object.fromEntries(
 			Object.entries(unformattedData).map(([key, value]) => [
 				key,
-				parseInt(value.toString()),
+				value.toString(),
 			])
 		) as unknown as FormValues;
 
-		const n = WASM.current?._n_factor(values.p, values.q);
-		const totient = WASM.current?._publicKey_totient(values.p, values.q);
+		console.log("Valores:", values);
 
-		if (
-			values.exponent <= 1 ||
-			WASM.current?._mdc(values.exponent, totient) !== 1
-		) {
+		const n = WASM.current?.ccall(
+			"n_factor",
+			"string",
+			["string", "string"],
+			[values.p, values.q]
+		);
+
+		console.log("N:", n);
+
+		const totient = WASM.current?.ccall(
+			"publicKey_totient",
+			"string",
+			["string", "string"],
+			[values.p, values.q]
+		);
+
+		console.log("Totiente:", totient);
+
+		const exponent_mdc = WASM.current?.ccall(
+			"mdc",
+			"string",
+			["string", "string"],
+			[values.exponent, totient]
+		);
+
+		console.log("MDC:", exponent_mdc);
+
+		if (parseInt(values.exponent) <= 1 || exponent_mdc !== "1") {
 			setErrors((errors) => ({
 				...errors,
 				exponent: "O expoente deve ser coprimo a φ(n) [totiente de n].",
@@ -210,10 +240,16 @@ export default function Section1() {
 
 		//console.log(values);
 
-		const privateKey = WASM.current?._privateKey_d(
-			totient,
-			values.exponent
+		const privateKey = WASM.current?.ccall(
+			"privateKey_d",
+			"string",
+			["string", "string"],
+			[totient, values.exponent]
 		);
+
+		console.log("Totiente:", totient);
+		console.log("Expoente:", values.exponent);
+		console.log("Chave privada:", privateKey);
 
 		// d ou e | d = privada, e = pública e em seguida o n
 		const publicKey = `${values.exponent} ${n}`;

@@ -1,12 +1,16 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 // Components
-import SectionWrapper from "./subcomponents/Wrapper";
+import SectionWrapper from "./subcomponents/layout/Wrapper";
 import ActionsHolder from "./subcomponents/ActionsHolder";
-import SavedKeys from "./subcomponents/SavedKeys";
 import { Input, InputHeader, InputRoot } from "../ui/Input";
 import { Button } from "../ui/Button";
+
+// Subcomponents
+import SavedKeys from "./subcomponents/SavedKeys";
+import AlphabetSelector from "./subcomponents/AlphabetSelector";
 
 // Icons
 import { PublicKeyIcon } from "@/public/icons/SectionsIcons";
@@ -17,9 +21,9 @@ import type { WasmFunctions, WasmMethods } from "@/lib/@types";
 export default function Section2() {
 	const [publicKey, setPublicKey] = useState<string>("");
 	const [message, setMessage] = useState<string>("");
-
 	const [hasEncryptedMessage, setHasEncryptedMessage] =
 		useState<boolean>(false);
+	const useAscii = useSearchParams().get("alphabet") === "ascii" ? 1 : 0;
 
 	const WASM = useRef<(WasmFunctions & WasmMethods) | null>(null);
 
@@ -50,8 +54,8 @@ export default function Section2() {
 		const encryptedMessage = WASM.current?.ccall(
 			"cryptosia_encrypt",
 			"string",
-			["number", "number", "number"],
-			[messagePointer, e, n]
+			["number", "number", "number", "number"],
+			[messagePointer, e, n, useAscii]
 		);
 
 		console.log("Mensagem criptografada: " + encryptedMessage);
@@ -61,10 +65,11 @@ export default function Section2() {
 				"Erro ao criptografar mensagem (ausência de mensagem)"
 			);
 
+		setPublicKey("");
 		setMessage("");
 		setHasEncryptedMessage(false);
 
-		const velocity = encryptedMessage.length / 1000;
+		const velocity = 10;
 
 		const textArea = document.getElementById(
 			"encrypted-message"
@@ -89,23 +94,12 @@ export default function Section2() {
 
 				if (i > encryptedMessage.length) {
 					clearInterval(intervalId);
+					setMessage(encryptedMessage);
 					setHasEncryptedMessage(true);
 				}
 			}, velocity);
 		}
-
-		/* let i = message.length;
-        const wipingInterval = setInterval(() => {
-            setMessage(message_cache.slice(0, i));
-
-            i--;
-
-            if (i <= -1) {
-                clearInterval(wipingInterval);
-                
-            }
-        }, 1); */
-	}, [publicKey, message]);
+	}, [publicKey, message, useAscii]);
 
 	const keySplit = useMemo(() => publicKey.split(" "), [publicKey]);
 
@@ -114,6 +108,7 @@ export default function Section2() {
 			<div className="flex w-full flex-col items-start gap-4">
 				<InputRoot className="w-full">
 					<InputHeader
+						tabIndex={0}
 						className="selection:!bg-black selection:!text-white"
 						icon={
 							<PublicKeyIcon
@@ -132,6 +127,7 @@ export default function Section2() {
 							style={{
 								wordSpacing: "0.5rem",
 							}}
+							tabIndex={1}
 							type="text"
 							maxLength={51}
 							value={publicKey}
@@ -155,17 +151,9 @@ export default function Section2() {
 							}}
 						/>
 						<SavedKeys type="encrypt" setKey={setPublicKey} />
+						<AlphabetSelector />
 					</div>
 				</InputRoot>
-				{/* <div className="flex flex-col items-center justify-center lg:flex-row lg:justify-between w-full gap-2.5">
-                    <div>
-                        <InputRoot>
-                            <InputHeader>
-                                Utilizar alfabeto
-                            </InputHeader>
-                        </InputRoot>
-                    </div>
-                </div> */}
 			</div>
 			<div className="flex w-full flex-1 relative overflow-hidden">
 				<textarea
